@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#0074a6",
+              "inverse-on-surface": "#eff1f3",
+              "surface-variant": "#e0e3e5",
+              "secondary": "#505f76",
+              "primary-fixed": "#dbe1ff",
+              "inverse-surface": "#2d3133",
+              "surface-container": "#eceef0",
+              "primary": "#004ac6",
+              "surface-tint": "#0053db",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#f2f4f6",
+              "surface-container-high": "#e6e8ea",
+              "tertiary-fixed-dim": "#89ceff",
+              "primary-container": "#2563eb",
+              "on-surface-variant": "#434655",
+              "on-primary-fixed-variant": "#003ea8",
+              "surface-bright": "#f7f9fb",
+              "on-background": "#191c1e",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#0b1c30",
+              "on-primary-fixed": "#00174b",
+              "tertiary-fixed": "#c9e6ff",
+              "on-error": "#ffffff",
+              "on-tertiary-container": "#e4f2ff",
+              "secondary-fixed": "#d3e4fe",
+              "surface-container-highest": "#e0e3e5",
+              "outline-variant": "#c3c6d7",
+              "on-secondary-fixed-variant": "#38485d",
+              "primary-fixed-dim": "#b4c5ff",
+              "secondary-container": "#d0e1fb",
+              "outline": "#737686",
+              "on-tertiary-fixed-variant": "#004c6e",
+              "inverse-primary": "#b4c5ff",
+              "surface-dim": "#d8dadc",
+              "error": "#ba1a1a",
+              "surface": "#f7f9fb",
+              "on-secondary-container": "#54647a",
+              "on-error-container": "#93000a",
+              "background": "#f7f9fb",
+              "on-surface": "#191c1e",
+              "tertiary": "#005a82",
+              "on-tertiary-fixed": "#001e2f",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#eeefff",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6"
+            },
+            fontFamily: {
+              "headline": ["Manrope", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        :root {
+            --liquid-bg: #e5eaf5;
+        }
+        body {
+            background-color: var(--liquid-bg);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(0, 74, 198, 0.25) 0px, transparent 40%),
+                radial-gradient(at 90% 10%, rgba(124, 58, 237, 0.2) 0px, transparent 40%),
+                radial-gradient(at 100% 80%, rgba(14, 165, 233, 0.25) 0px, transparent 40%),
+                radial-gradient(at 0% 90%, rgba(67, 56, 202, 0.15) 0px, transparent 40%),
+                radial-gradient(at 50% 50%, rgba(137, 206, 255, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            font-size: 0.8125rem;
+            letter-spacing: 0.01em;
+            overflow-x: hidden;
+        }
+
+        /* Glass Panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(32px) saturate(200%);
+            -webkit-backdrop-filter: blur(32px) saturate(200%);
+            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 10px 40px -10px rgba(0, 0, 0, 0.05),
+                inset 0 0 12px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Specular Highlight Effect */
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0) 55%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        
+        /* Heatmap Styles */
+        .heatmap-square {
+            width: 10px;
+            height: 10px;
+            border-radius: 2.5px;
+            transition: all 0.2s ease;
+        }
+        .heatmap-glow-high {
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+        }
+        .heatmap-active {
+            box-shadow: 0 0 10px rgba(0, 74, 198, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        .row-hover:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Status Colors - Glowing */
+        .status-retrasada {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ff3333;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+        }
+        .status-completado {
+            background: rgba(16, 185, 129, 0.15);
+            color: #00d981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+        }
+        .status-progreso {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface min-h-screen">
+<!-- SideNavBar - Darker Frosted Glass -->
+<aside class="fixed left-0 top-0 h-full w-[220px] z-50 backdrop-blur-3xl flex flex-col p-5 space-y-4 font-manrope text-[12px] border-r overflow-y-auto no-scrollbar bg-white/40 border-white/50 shadow-xl">
+<div class="flex items-center gap-2.5 mb-2 px-1">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-xl shadow-primary/30">
+<span class="material-symbols-outlined text-xl">rocket_launch</span>
+</div>
+<div>
+<h1 class="text-sm font-extrabold leading-tight tracking-tight text-slate-900">Gestión Premium</h1>
+<p class="text-[8px] uppercase tracking-[0.15em] font-bold mt-0.5 text-slate-600">Edición Editorial</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white/10 text-white shadow-sm border border-white/10 rounded-xl font-semibold cursor-pointer transition-all duration-200 bg-primary/10 text-primary border-primary/10 shadow-lg shadow-primary/5" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="tracking-tight">Panel Principal</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 hover:text-white hover:bg-white/5 rounded-xl cursor-pointer transition-all duration-200 group text-slate-600 hover:bg-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">check_circle</span>
+<span class="tracking-tight font-medium">Mis Tareas</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 hover:text-white hover:bg-white/5 rounded-xl cursor-pointer transition-all duration-200 group text-slate-600 hover:bg-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">calendar_today</span>
+<span class="tracking-tight font-medium">Calendario</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 hover:text-white hover:bg-white/5 rounded-xl cursor-pointer transition-all duration-200 group text-slate-600 hover:bg-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">group</span>
+<span class="tracking-tight font-medium">Equipo</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 hover:text-white hover:bg-white/5 rounded-xl cursor-pointer transition-all duration-200 group text-slate-600 hover:bg-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-lg group-hover:scale-110 transition-transform">insert_chart</span>
+<span class="tracking-tight font-medium">Reportes</span>
+</a>
+</nav>
+<div class="bg-white/5 rounded-2xl p-4 space-y-3 mt-4 border border-white/5 bg-white/20 border-white/40">
+<h3 class="text-[9px] font-bold uppercase tracking-[0.1em] px-1 text-slate-600">Próximas Entregas</h3>
+<div class="space-y-2">
+<div class="flex items-center gap-3 p-2.5 bg-white/5 rounded-xl border border-white/5 bg-white/50 border-white/30">
+<div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center text-amber-400">
+<span class="material-symbols-outlined text-base">description</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-200 leading-tight">Reporte Q3</p>
+<p class="text-[8px] text-slate-400 font-medium">En 2 días</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-2.5 bg-white/5 rounded-xl border border-white/5 bg-white/50 border-white/30">
+<div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined text-base">palette</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-slate-200 leading-tight">Logo Final</p>
+<p class="text-[8px] text-slate-400 font-medium">En 4 días</p>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold shadow-xl shadow-primary/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide">
+            Nueva Tarea
+        </button>
+<div class="pt-4 border-t border-slate-200">
+<a class="flex items-center gap-3 px-3 py-2 hover:text-white transition-colors text-[11px] font-medium text-slate-600 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-base">help</span>
+<span>Centro de Ayuda</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-red-400 hover:text-red-300 transition-colors text-[11px] font-semibold text-red-600 hover:text-red-700" href="#">
+<span class="material-symbols-outlined text-base">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[220px] p-8 pb-12 w-[calc(100%-220px)] relative z-10">
+<header class="fixed top-0 right-0 w-[calc(100%-220px)] z-40 bg-white/10 backdrop-blur-3xl flex justify-between items-center px-8 h-16 border-b border-white/20 font-manrope">
+<div class="flex items-center bg-white/40 border border-white/50 rounded-2xl px-4 py-2 w-80 focus-within:w-96 transition-all duration-300 shadow-sm">
+<span class="material-symbols-outlined text-slate-500 mr-3 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-slate-900 placeholder:text-slate-500 text-xs font-medium" placeholder="Buscar tareas, proyectos o miembros..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<button class="relative p-2 text-slate-600 hover:bg-white/40 rounded-xl transition-all duration-200">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border border-white shadow-sm shadow-error/50"></span>
+</button>
+<button class="p-2 text-slate-600 hover:bg-white/40 rounded-xl transition-all duration-200">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-slate-300/30"></div>
+<div class="flex items-center gap-3 bg-white/40 pl-3 pr-1 py-1 rounded-2xl border border-white/50">
+<div class="text-right">
+<p class="font-bold text-slate-900 text-[12px] leading-tight">Alejandro Rivera</p>
+<p class="text-[9px] text-slate-500 font-semibold tracking-wider uppercase">Director Creativo</p>
+</div>
+<img alt="Foto de perfil" class="w-9 h-9 rounded-xl object-cover border-2 border-white shadow-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYtVGVmcpzaqvKiZ59MXV6_ekdXZi-UE4Zj0LPXM-erRDeij4vpCWull1dJx4AH5xojqr7wm-uccYlSotpJ4yVlkYvbuBFOBMpaPFI6mqoyBSngD8QjrR3lU9CQu--DN-33FaGclUtqmxFlNQP-rqpnW2f8ogSQePBi24BdwH5vfrx8hPDlKgQ3920Tl-cIbVYCmCjyerPDTYEwIxkcSpgb20ln8ymlZ8BcG5TtNzi6WUhnq_ZEAK_coP0ZGLWHkYoHBb29dUhTcho"/>
+</div>
+</div>
+</header>
+<div class="mt-20">
+<!-- Resumen Superior -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
+<div class="flex justify-between items-start">
+<div class="p-2.5 bg-blue-500/10 rounded-xl text-blue-600 shadow-sm border border-blue-200/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">today</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Hoy</span>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-slate-900 tracking-tight">12</h3>
+<p class="text-[11px] text-slate-500 font-medium tracking-wide">Tareas del Día</p>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
+<div class="flex justify-between items-start">
+<div class="p-2.5 bg-amber-500/10 rounded-xl text-amber-600 shadow-sm border border-amber-200/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">bolt</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">En Marcha</span>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-slate-900 tracking-tight">24</h3>
+<p class="text-[11px] text-slate-500 font-medium tracking-wide">Actividades Activas</p>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 border-red-200/40 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
+<div class="flex justify-between items-start">
+<div class="p-2.5 bg-red-500/10 rounded-xl text-red-500 shadow-sm border border-red-200/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">priority_high</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Crítico</span>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-red-500 tracking-tight">03</h3>
+<p class="text-[11px] text-slate-500 font-medium tracking-wide">Tareas Retrasadas</p>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
+<div class="flex justify-between items-start">
+<div class="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-600 shadow-sm border border-emerald-200/20 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+</div>
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">KPI</span>
+</div>
+<div>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-headline font-bold text-slate-900 tracking-tight">94%</h3>
+<span class="text-[11px] font-extrabold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200/20">+2.4%</span>
+</div>
+<p class="text-[11px] text-slate-500 font-medium tracking-wide">Índice de Productividad</p>
+</div>
+</div>
+</div>
+<div class="space-y-8">
+<!-- Filter Bar -->
+<div class="glass-panel rounded-2xl p-3 flex flex-wrap items-center gap-2 overflow-x-auto no-scrollbar">
+<button class="px-5 py-2.5 bg-primary text-white rounded-xl text-[11px] font-bold shadow-lg shadow-primary/25 hover:scale-105 transition-all">Por Fecha</button>
+<button class="px-5 py-2.5 bg-white/40 text-slate-700 rounded-xl text-[11px] font-bold border border-white/50 hover:bg-white/60 transition-all">Retrasadas</button>
+<button class="px-5 py-2.5 bg-white/40 text-slate-700 rounded-xl text-[11px] font-bold border border-white/50 hover:bg-white/60 transition-all">Urgentes</button>
+<button class="px-5 py-2.5 bg-white/40 text-slate-700 rounded-xl text-[11px] font-bold border border-white/50 hover:bg-white/60 transition-all">Mis Tareas</button>
+<button class="px-5 py-2.5 bg-white/40 text-slate-700 rounded-xl text-[11px] font-bold border border-white/50 hover:bg-white/60 transition-all">Asignadas</button>
+</div>
+<!-- Detailed List View -->
+<div class="glass-panel rounded-[2.5rem] overflow-hidden shadow-2xl">
+<div class="px-8 py-6 border-b border-white/30 flex justify-between items-center bg-white/10">
+<h2 class="text-lg font-headline font-bold text-slate-900 tracking-tight">Tareas Activas</h2>
+<div class="flex gap-4 items-center">
+<button class="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-primary/10">
+<span class="material-symbols-outlined text-base">add</span>
+                                Crear Tarea
+                            </button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5">
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Nombre de la Tarea</th>
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Proyecto</th>
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Vencimiento</th>
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Prioridad</th>
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Responsables</th>
+<th class="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Estado</th>
+<th class="px-8 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/20">
+<!-- Row 1 -->
+<tr class="row-hover transition-all duration-300 cursor-pointer group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-lg">radio_button_checked</span>
+<span class="font-bold text-slate-900 text-[13px] tracking-tight">Rediseño de Interfaz v2</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="text-[12px] text-slate-600 font-semibold">Sinergia Pro</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+<span class="material-symbols-outlined text-base text-slate-400">calendar_today</span>
+                                            15 Oct, 2023
+                                        </div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 bg-blue-500/10 text-blue-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-blue-500/10">Media</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex -space-x-2">
+<img alt="Usuario" class="w-7 h-7 rounded-lg border-2 border-white shadow-md ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB02u8uRR2_qKO0C0b2opG5XvrO9NXWB0b4JtASWE_38gAtzF6_3r9YLQ4bLsHpVBJPcgrDMpxb_ioeITdqawg19dLMvPhi71qrzxtWzJ0V5BJ3fnHk2NSiVyNqSOQXHdZcmL60U6H7zXwem6a1edb0-kre4VyX5cI9cEBEaIgsZGkX6r_9zeA28z-Juu5yUTW26J3HjOgSyO9DS2MlXR-ENk1CLSZXxOEQL7OJEeyW2efi9P237mlg5sYJdeWgx6hYiEDwAxmKHL4j"/>
+<img alt="Usuario" class="w-7 h-7 rounded-lg border-2 border-white shadow-md ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9wHhI69gP5RsO12yr-6EENvnzn5oleVPjv8TsDdc_bYL9d2-3-52E6xdR6T-YEIfK1RgcvP1Pe5RnZOjapTcjOJXSQnvNS612nXwj6vh5etJqJVyEfGTrkqCQnYq6jJQNDv4-MP2aXJpdlzEnJFvqoqyjGOZUq7uwd5GDGLeCm1v6rmcM-qzDSvmB-MnGkpYusy9RNclNENstAyV6u0KvWYiVRPjv_kPgSA1jvJIXKiknQkLHRygFZUy5zFPaEPKvaLhhUvIhRvm2"/>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 status-progreso text-[9px] font-bold rounded-lg uppercase tracking-wider">En Progreso</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="row-hover transition-all duration-300 cursor-pointer group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-500 text-lg">priority_high</span>
+<span class="font-bold text-slate-900 text-[13px] tracking-tight">Auditoría de Accesibilidad</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="text-[12px] text-slate-600 font-semibold">Infraestructura</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2 text-[11px] font-bold text-red-500">
+<span class="material-symbols-outlined text-base">schedule</span>
+                                            Hoy
+                                        </div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 bg-red-500/10 text-red-500 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-red-500/10">Urgente</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex">
+<img alt="Usuario" class="w-7 h-7 rounded-lg border-2 border-white shadow-md ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp2epE7jibjwThcNlBKkGThSvngwbbYAWVREKbAOCSDfdeJz20CNs_7Tbh5hVmQvUDWp_QLX0SHDew14V_R-vVNSHYBlnGNYyczBSMr_yofelIhzL8KFLuQO1virq6eTNv2-wPs6jjpt-cpNXMsZAuJE4STG03Q9TiykW5ymZPNp5WBL_eGo6ShFupVanXIMfw5YQSKa--8yLjRYuC13daOqtDsfWoxmo1AcFOE-EAXOxHgHz9DpNKTc6lzdNP8C-yFN8dZqRv6rQo"/>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 status-retrasada text-[9px] font-bold rounded-lg uppercase tracking-wider">Retrasada</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="row-hover transition-all duration-300 cursor-pointer group">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500 text-lg">check_circle</span>
+<span class="font-bold text-slate-900 text-[13px] tracking-tight">Feedback de Stakeholders</span>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="text-[12px] text-slate-600 font-semibold">Estrategia 2024</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2 text-[11px] font-semibold text-slate-600">
+<span class="material-symbols-outlined text-base text-slate-400">calendar_today</span>
+                                            18 Oct, 2023
+                                        </div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 bg-amber-500/10 text-amber-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-amber-500/10">Alta</span>
+</td>
+<td class="px-8 py-5">
+<div class="flex -space-x-2">
+<img alt="Usuario" class="w-7 h-7 rounded-lg border-2 border-white shadow-md ring-1 ring-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBGh0BVG_QJvyIZ5M_ZNuPh90LJSCSNNhqi5N1qaicGkvcf-dnVOuNbhp8zMDQCLhVPBAzm7VDrx2y149nPYsYHYUrO_xqeYhvZrm_dy00U-QxsA6Y_uCgmNolOUM64cYisHIbJgrkbWQes9_0FDZcoo61Z60i7XF4fu3CnmTHjZMlk_dpbQpP41Cq94f9BA8QC2x8fe5a0dnzEDY3H59twdzWJ8I4e-hgGfezU-udpvPhiarHLIGpGBXvSNSwN5KpmiP96NF96kEM"/>
+<div class="w-7 h-7 rounded-lg border-2 border-white bg-slate-100 flex items-center justify-center text-[8px] font-extrabold text-slate-500 shadow-sm ring-1 ring-slate-200">+3</div>
+</div>
+</td>
+<td class="px-8 py-5">
+<span class="px-2.5 py-1 bg-slate-500/10 text-slate-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-slate-500/10">Planificado</span>
+</td>
+<td class="px-8 py-5 text-right">
+<button class="text-slate-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-5 bg-white/5 border-t border-white/20 flex justify-center">
+<button class="text-[11px] font-extrabold text-primary hover:underline uppercase tracking-[0.2em] transition-all">Ver historial completo</button>
+</div>
+</div>
+<!-- Estado Semanal Heatmap -->
+<div class="glass-panel rounded-[2.5rem] p-8 shadow-2xl">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-lg font-headline font-bold text-slate-900 tracking-tight">Estado Semanal</h2>
+<p class="text-[11px] text-slate-500 font-medium">Progreso de actividades en los últimos 45 días</p>
+</div>
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-emerald-400 rounded-[3px] shadow-sm shadow-emerald-400/50"></span>
+<span class="text-[11px] text-slate-600 font-bold tracking-tight">Completado</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-red-400/30 rounded-[3px] border border-red-400/20"></span>
+<span class="text-[11px] text-slate-600 font-bold tracking-tight">Asignado</span>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2 max-w-4xl">
+<!-- History (Emerald) -->
+<div class="heatmap-square bg-emerald-200"></div>
+<div class="heatmap-square bg-emerald-400 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-100"></div>
+<div class="heatmap-square bg-emerald-600 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-300"></div>
+<div class="heatmap-square bg-emerald-500 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-200"></div>
+<div class="heatmap-square bg-emerald-600 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-400 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-500 heatmap-glow-high"></div>
+<div class="heatmap-square bg-emerald-300"></div>
+<div class="heatmap-square bg-emerald-100"></div>
+<div class="heatmap-square bg-emerald-400 heatmap-glow-high"></div>
+<!-- Current Day with Glow -->
+<div class="heatmap-square bg-white heatmap-active flex items-center justify-center relative">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+</div>
+<!-- Future (Muted red) -->
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/20 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/15 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/10 border border-red-400/5"></div>
+<div class="heatmap-square bg-red-400/25 border border-red-400/5"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

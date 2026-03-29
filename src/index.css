@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #004ac6;
+  --color-primary-container: #2563eb;
+  --color-on-surface: #191c1e;
+  --color-surface: #f7f9fb;
+  --color-surface-container-low: #f2f4f6;
+  --color-tertiary-fixed: #c9e6ff;
+  --color-error: #ba1a1a;
+  
+  --font-headline: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Inter", sans-serif;
+}
+
+@layer base {
+  :root {
+    --liquid-bg: #e5eaf5;
+  }
+  
+  body {
+    background-color: var(--liquid-bg);
+    background-image: 
+        radial-gradient(at 10% 20%, rgba(0, 74, 198, 0.25) 0px, transparent 40%),
+        radial-gradient(at 90% 10%, rgba(124, 58, 237, 0.2) 0px, transparent 40%),
+        radial-gradient(at 100% 80%, rgba(14, 165, 233, 0.25) 0px, transparent 40%),
+        radial-gradient(at 0% 90%, rgba(67, 56, 202, 0.15) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(137, 206, 255, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Glass Panels */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 0.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 10px 40px -10px rgba(0, 0, 0, 0.05),
+        inset 0 0 12px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Specular Highlight Effect */
+  .glass-panel::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 45%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0) 55%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .font-manrope { font-family: 'Manrope', sans-serif; }
+  
+  /* Heatmap Styles */
+  .heatmap-square {
+    width: 10px;
+    height: 10px;
+    border-radius: 2.5px;
+    transition: all 0.2s ease;
+  }
+  .heatmap-glow-high {
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  }
+  .heatmap-active {
+    box-shadow: 0 0 10px rgba(0, 74, 198, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+  }
+
+  .row-hover:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+  }
+
+  /* Status Colors - Glowing */
+  .status-retrasada {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ff3333;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+  }
+  .status-completado {
+    background: rgba(16, 185, 129, 0.15);
+    color: #00d981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+  }
+  .status-progreso {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+  }
+}
