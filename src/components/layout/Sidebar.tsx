@@ -1,16 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import { useModal } from '../../context/ModalContext';
+import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
   { name: 'Panel Principal', path: '/panel', icon: 'dashboard' },
   { name: 'Mis Tareas', path: '/tareas', icon: 'check_circle' },
   { name: 'Calendario', path: '/calendario', icon: 'calendar_today' },
+  { name: 'Seguimientos', path: '/seguimientos', icon: 'pending_actions' },
   { name: 'Proyectos', path: '/proyectos', icon: 'folder_open' },
   { name: 'Reportes', path: '/informes', icon: 'insert_chart' },
 ];
 
 export function Sidebar() {
   const { openTaskModal } = useModal();
+  const { signOut } = useAuth();
 
   return (
     <aside className="fixed left-0 top-0 h-full w-[220px] z-50 backdrop-blur-3xl flex flex-col p-5 space-y-4 font-headline text-[12px] border-r overflow-y-auto no-scrollbar bg-white/40 border-white/50 shadow-xl">
@@ -77,14 +80,22 @@ export function Sidebar() {
       </button>
 
       <div className="pt-4 border-t border-slate-200">
-        <a className="flex items-center gap-3 px-3 py-2 transition-colors text-[11px] font-medium text-slate-600 hover:text-primary" href="/ayuda">
-          <span className="material-symbols-outlined text-base">help</span>
-          <span>Centro de Ayuda</span>
-        </a>
-        <a className="flex items-center gap-3 px-3 py-2 transition-colors text-[11px] font-semibold text-red-600 hover:text-red-700" href="/logout">
+        <NavLink
+          to="/ajustes"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2 rounded-xl transition-colors text-[11px] font-medium ${isActive ? 'text-primary bg-primary/10' : 'text-slate-600 hover:text-primary'}`
+          }
+        >
+          <span className="material-symbols-outlined text-base">settings</span>
+          <span>Ajustes</span>
+        </NavLink>
+        <button
+          onClick={signOut}
+          className="flex items-center gap-3 px-3 py-2 w-full rounded-xl transition-colors text-[11px] font-semibold text-red-600 hover:text-red-700 hover:bg-red-500/5"
+        >
           <span className="material-symbols-outlined text-base">logout</span>
           <span>Cerrar Sesión</span>
-        </a>
+        </button>
       </div>
     </aside>
   );

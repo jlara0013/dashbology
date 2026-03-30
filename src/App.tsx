@@ -10,10 +10,9 @@ import Tareas from './pages/Tareas';
 
 import Calendario from './pages/Calendario';
 import Proyectos from './pages/Proyectos';
-
-// Temporary inline components 
-const Seguimientos = () => <div className="mt-20 p-8"><h1 className="text-3xl font-headline font-bold">Seguimientos</h1></div>;
-const Informes = () => <div className="mt-20 p-8"><h1 className="text-3xl font-headline font-bold">Reportes</h1></div>;
+import Seguimientos from './pages/Seguimientos';
+import Informes from './pages/Informes';
+import Ajustes from './pages/Ajustes';
 
 const App = () => {
   const { session, isLoading } = useAuth();
@@ -43,6 +42,7 @@ const App = () => {
           <Route path="/seguimientos" element={<Seguimientos />} />
           <Route path="/proyectos" element={<Proyectos />} />
           <Route path="/informes" element={<Informes />} />
+          <Route path="/ajustes" element={<Ajustes />} />
         </Routes>
       </main>
 
