@@ -8,7 +8,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-gradient-to-r from-primary to-primary-container text-on-primary-container hover:shadow-[0_8px_32px_rgba(37,99,235,0.2)] hover:-translate-y-0.5',
+          'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-0.5 border-0',
         secondary:
           'bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 hover:-translate-y-0.5',
         tertiary:
@@ -17,8 +17,9 @@ const buttonVariants = cva(
           'bg-transparent hover:bg-white/50 text-slate-700',
       },
       size: {
-        sm: 'h-8 px-3 rounded-md',
-        md: 'h-10 px-4 py-2 rounded-xl', // 0.75rem rounded (xl in tailwind) for primary shape
+        sm: 'h-8 px-3 rounded-full',
+        md: 'h-10 px-5 py-2 rounded-full', // Pill shape for all main buttons
+
         icon: 'h-10 w-10 rounded-xl',
       },
     },

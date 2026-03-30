@@ -71,7 +71,7 @@ export function Sidebar() {
       
       <button 
         onClick={openTaskModal}
-        className="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold shadow-xl shadow-primary/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide"
+        className="w-full py-3 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white rounded-full text-xs font-bold shadow-xl shadow-indigo-500/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide border-0"
       >
         Nueva Tarea
       </button>

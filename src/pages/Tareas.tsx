@@ -78,23 +78,23 @@ const Tareas = () => {
       <div className="glass-panel rounded-2xl p-3 flex flex-wrap items-center gap-2 overflow-x-auto no-scrollbar">
         <button 
           onClick={() => setActiveFilter('all')}
-          className={`px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all ${activeFilter === 'all' ? 'bg-primary text-white shadow-lg shadow-primary/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'all' ? 'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] border-0 text-white shadow-lg shadow-indigo-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Todas</button>
         <button 
           onClick={() => setActiveFilter('retrasadas')}
-          className={`px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all ${activeFilter === 'retrasadas' ? 'bg-red-500 text-white shadow-lg shadow-red-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'retrasadas' ? 'bg-red-500 border-0 text-white shadow-lg shadow-red-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Retrasadas</button>
         <button 
           onClick={() => setActiveFilter('urgentes')}
-          className={`px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all ${activeFilter === 'urgentes' ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'urgentes' ? 'bg-amber-500 border-0 text-white shadow-lg shadow-amber-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Urgentes</button>
         <button 
           onClick={() => setActiveFilter('mis_tareas')}
-          className={`px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all ${activeFilter === 'mis_tareas' ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'mis_tareas' ? 'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] border-0 text-white shadow-lg shadow-indigo-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Activas</button>
         <button 
           onClick={() => setActiveFilter('completadas')}
-          className={`px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all ${activeFilter === 'completadas' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'completadas' ? 'bg-emerald-500 border-0 text-white shadow-lg shadow-emerald-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Completadas</button>
       </div>
       
@@ -105,7 +105,7 @@ const Tareas = () => {
           <div className="flex gap-4 items-center">
             <button 
               onClick={openTaskModal}
-              className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary px-5 py-2.5 rounded-xl text-[11px] font-bold transition-all border border-primary/10"
+              className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-2.5 rounded-full text-[11px] font-bold transition-all shadow-lg shadow-indigo-500/20 border-0"
             >
               <span className="material-symbols-outlined text-base">add</span>
               Nueva
