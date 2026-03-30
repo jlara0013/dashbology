@@ -24,7 +24,7 @@ const Tareas = () => {
   };
 
   const renderStatusDropdown = (tarea: any) => {
-    const baseClass = "px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider cursor-pointer appearance-none bg-transparent outline-none border focus:ring-2 focus:ring-primary/20 ";
+    const baseClass = "pl-2.5 pr-6 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider cursor-pointer appearance-none bg-transparent outline-none border focus:ring-2 focus:ring-primary/20 ";
     let colorClass = "";
     
     switch(tarea.estado) {
