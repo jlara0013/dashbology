@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { useModal } from '../../context/ModalContext';
 
 const navItems = [
   { name: 'Panel Principal', path: '/panel', icon: 'dashboard' },
@@ -9,6 +10,8 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const { openTaskModal } = useModal();
+
   return (
     <aside className="fixed left-0 top-0 h-full w-[220px] z-50 backdrop-blur-3xl flex flex-col p-5 space-y-4 font-headline text-[12px] border-r overflow-y-auto no-scrollbar bg-white/40 border-white/50 shadow-xl">
       <div className="flex items-center gap-2.5 mb-2 px-1">
@@ -66,7 +69,10 @@ export function Sidebar() {
         </div>
       </div>
       
-      <button className="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold shadow-xl shadow-primary/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide">
+      <button 
+        onClick={openTaskModal}
+        className="w-full py-3 bg-primary text-white rounded-xl text-xs font-bold shadow-xl shadow-primary/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide"
+      >
         Nueva Tarea
       </button>
 
