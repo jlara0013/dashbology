@@ -92,6 +92,20 @@ export interface Database {
           activo: boolean
           user_id: string
         }
+        Insert: {
+          id?: string
+          nombre: string
+          descripcion?: string | null
+          activo?: boolean
+          user_id: string
+        }
+        Update: {
+          id?: string
+          nombre?: string
+          descripcion?: string | null
+          activo?: boolean
+          user_id?: string
+        }
       }
       usuarios: {
         Row: {

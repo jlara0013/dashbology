@@ -5,7 +5,7 @@ const navItems = [
   { name: 'Panel Principal', path: '/panel', icon: 'dashboard' },
   { name: 'Mis Tareas', path: '/tareas', icon: 'check_circle' },
   { name: 'Calendario', path: '/calendario', icon: 'calendar_today' },
-  { name: 'Equipo', path: '/proyectos', icon: 'group' },
+  { name: 'Proyectos', path: '/proyectos', icon: 'folder_open' },
   { name: 'Reportes', path: '/informes', icon: 'insert_chart' },
 ];
 

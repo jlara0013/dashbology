@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useTareas } from '../../hooks/useTareas';
+import { useProyectos } from '../../hooks/useProyectos';
 import { Button } from './Button';
 import { Input } from './Input';
 import type { Database } from '../../lib/types';
@@ -16,6 +17,7 @@ interface TaskFormModalProps {
 export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
   const { user } = useAuth();
   const { createTarea } = useTareas();
+  const { proyectos } = useProyectos();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,6 +28,8 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     categoria: 'programada',
     estado: 'pendiente',
     fecha_limite: new Date().toISOString().split('T')[0], // Today's date YYYY-MM-DD
+    proyecto_id: null,
+
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -56,6 +60,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
         categoria: 'programada',
         estado: 'pendiente',
         fecha_limite: new Date().toISOString().split('T')[0],
+        proyecto_id: null,
       });
     }
   };
@@ -171,6 +176,21 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                         <option value="en_progreso">En Progreso</option>
                       </select>
                     </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Proyecto (Opcional)</label>
+                    <select
+                      name="proyecto_id"
+                      value={formData.proyecto_id || ''}
+                      onChange={handleChange}
+                      className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
+                    >
+                      <option value="">Ninguno</option>
+                      {proyectos.map(p => (
+                        <option key={p.id} value={p.id}>{p.nombre}</option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>

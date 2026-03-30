@@ -9,10 +9,10 @@ import Panel from './pages/Panel';
 import Tareas from './pages/Tareas';
 
 import Calendario from './pages/Calendario';
+import Proyectos from './pages/Proyectos';
 
 // Temporary inline components 
 const Seguimientos = () => <div className="mt-20 p-8"><h1 className="text-3xl font-headline font-bold">Seguimientos</h1></div>;
-const Proyectos = () => <div className="mt-20 p-8"><h1 className="text-3xl font-headline font-bold">Equipo</h1></div>;
 const Informes = () => <div className="mt-20 p-8"><h1 className="text-3xl font-headline font-bold">Reportes</h1></div>;
 
 const App = () => {
