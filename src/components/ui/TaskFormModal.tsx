@@ -41,8 +41,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     const { error } = await createTarea({
       ...formData as InsertTarea,
       user_id: user.id,
-      responsable_id: user.id, // Assign to self by default for MVP
-      // Ensure fecha_limite is ISO if needed, HTML date input provides YYYY-MM-DD which is valid PG date
+      // responsable_id is omitted since auth trigger for public.usuarios is not in place yet
     });
 
     setLoading(false);
