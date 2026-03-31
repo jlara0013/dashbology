@@ -116,7 +116,7 @@ export default function Proyectos() {
                   {/* Progress Bar */}
                   <div className="h-2 w-full bg-slate-200/50 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] rounded-full transition-all duration-1000 ease-out"
+                      className="h-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] rounded-full transition-[width] duration-1000 ease-out"
                       style={{ width: `${stats.progress}%` }}
                     />
                   </div>

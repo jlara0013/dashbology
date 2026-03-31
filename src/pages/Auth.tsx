@@ -82,7 +82,7 @@ export default function Auth() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ejemplo@empresa.com"
                   required
-                  className="w-full bg-white/50 border border-slate-200 text-slate-900 text-sm rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 pl-11 pr-4 py-3.5 placeholder:text-slate-400 font-medium outline-none shadow-inner"
+                  className="w-full bg-white/50 border border-slate-200 text-slate-900 text-sm rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary transition-[border-color,box-shadow] duration-300 pl-11 pr-4 py-3.5 placeholder:text-slate-400 font-medium outline-none shadow-inner"
                 />
               </div>
             </div>
@@ -97,7 +97,7 @@ export default function Auth() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full bg-white/50 border border-slate-200 text-slate-900 text-sm rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 pl-11 pr-4 py-3.5 placeholder:text-slate-400 font-medium outline-none shadow-inner"
+                  className="w-full bg-white/50 border border-slate-200 text-slate-900 text-sm rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary transition-[border-color,box-shadow] duration-300 pl-11 pr-4 py-3.5 placeholder:text-slate-400 font-medium outline-none shadow-inner"
                 />
               </div>
             </div>

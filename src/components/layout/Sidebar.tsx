@@ -64,8 +64,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           <span className="material-symbols-outlined text-xl">rocket_launch</span>
         </div>
         <div>
-          <h1 className="text-sm font-extrabold leading-tight tracking-tight text-slate-900">Gestión Premium</h1>
-          <p className="text-[10px] uppercase tracking-[0.15em] font-bold mt-0.5 text-slate-600">Edición Editorial</p>
+          <h1 className="text-sm font-extrabold leading-tight tracking-tight text-slate-900">Dashbology</h1>
+          <p className="text-[10px] uppercase tracking-[0.15em] font-bold mt-0.5 text-slate-600">Control Central</p>
         </div>
       </div>
       
@@ -76,7 +76,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             to={item.path}
             onClick={onClose}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 group ${
+              `flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors duration-200 group ${
                 isActive
                   ? 'bg-primary/10 text-primary border border-primary/10 shadow-lg shadow-primary/5 font-semibold'
                   : 'text-slate-600 hover:bg-white/60 hover:text-primary font-medium'
@@ -116,7 +116,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       
       <button 
         onClick={openTaskModal}
-        className="w-full py-3 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white rounded-full text-xs font-bold shadow-xl shadow-indigo-500/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-auto tracking-wide border-0"
+        className="w-full py-3 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white rounded-full text-xs font-bold shadow-xl shadow-indigo-500/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-[filter,transform] mt-auto tracking-wide border-0"
       >
         Nueva Tarea
       </button>

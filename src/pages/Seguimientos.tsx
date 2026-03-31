@@ -178,7 +178,7 @@ export default function Seguimientos() {
             <button
               key={f}
               onClick={() => setEstadoFiltro(f)}
-              className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-colors duration-200 ${
                 estadoFiltro === f
                   ? 'bg-white shadow-md text-primary'
                   : 'text-slate-500 hover:text-slate-700'
@@ -195,7 +195,7 @@ export default function Seguimientos() {
             <button
               key={t}
               onClick={() => setTipoFiltro(t)}
-              className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
+              className={`px-4 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-colors duration-200 ${
                 tipoFiltro === t
                   ? 'bg-white shadow-md text-primary'
                   : 'text-slate-500 hover:text-slate-700'
@@ -236,7 +236,7 @@ export default function Seguimientos() {
             return (
               <div
                 key={seg.id}
-                className={`glass-panel rounded-2xl border transition-all duration-300 group ${
+                className={`glass-panel rounded-2xl border transition-[box-shadow,transform,opacity] duration-300 group ${
                   seg.completado
                     ? 'bg-white/10 border-white/20 opacity-60'
                     : overdue

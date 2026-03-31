@@ -49,7 +49,7 @@ function VBar({ label, value, max, sublabel }: { label: string; value: number; m
       <div className="w-full flex-1 flex items-end">
         <div className="w-full bg-slate-100 rounded-full overflow-hidden" style={{ height: '80px' }}>
           <div
-            className="w-full rounded-full bg-gradient-to-t from-[#4facfe] to-[#6b47ff] transition-all duration-700"
+            className="w-full rounded-full bg-gradient-to-t from-[#4facfe] to-[#6b47ff] transition-[height] duration-700"
             style={{ height: `${pct}%` }}
           />
         </div>
@@ -228,7 +228,7 @@ export default function Informes() {
                 <span className="text-[11px] font-extrabold w-14 text-right" style={{ color: PRIORITY_COLORS[p].bar }}>{PRIORITY_COLORS[p].label}</span>
                 <div className="flex-1 h-6 bg-slate-100 rounded-lg overflow-hidden relative">
                   <div
-                    className="h-full rounded-lg transition-all duration-700 flex items-center pl-2"
+                    className="h-full rounded-lg transition-[width] duration-700 flex items-center pl-2"
                     style={{ width: `${Math.max((v / maxPriority) * 100, v > 0 ? 8 : 0)}%`, background: PRIORITY_COLORS[p].bar + '30', border: `1px solid ${PRIORITY_COLORS[p].bar}20` }}
                   />
                   {v > 0 && (
@@ -274,7 +274,7 @@ export default function Informes() {
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] transition-all duration-700"
+                        className="h-full rounded-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] transition-[width] duration-700"
                         style={{ width: `${(v / maxCategory) * 100}%` }}
                       />
                     </div>

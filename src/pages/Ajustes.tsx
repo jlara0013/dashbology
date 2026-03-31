@@ -96,7 +96,7 @@ export default function Ajustes() {
             <button
               key={s.id}
               onClick={() => setActiveSection(s.id)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[12px] font-bold text-left transition-all duration-200 ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[12px] font-bold text-left transition-colors duration-200 ${
                 activeSection === s.id
                   ? 'bg-white shadow-md text-primary'
                   : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'

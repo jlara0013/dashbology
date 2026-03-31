@@ -126,7 +126,7 @@ export default function Calendario() {
           </div>
           <button 
             onClick={openTaskModal}
-            className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-3 rounded-full text-[11px] font-bold transition-all shadow-lg shadow-indigo-500/20 border-0"
+            className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-3 rounded-full text-[11px] font-bold transition-[filter] shadow-lg shadow-indigo-500/20 border-0"
           >
             <span className="material-symbols-outlined text-base">add</span>
             Programar
@@ -163,7 +163,7 @@ export default function Calendario() {
             return (
               <div 
                 key={`${calDay.dateStr}-${idx}`}
-                className={`flex flex-col p-2 sm:p-3 rounded-2xl sm:rounded-3xl border transition-all duration-300 ${calDay.isToday ? 'bg-indigo-50/80 border-indigo-200 shadow-[inset_0_0_20px_rgba(99,102,241,0.1)] ring-2 ring-primary/20 ring-offset-2' : calDay.isCurrentMonth ? 'bg-white/60 border-white/80 hover:bg-white/90 hover:shadow-xl hover:-translate-y-1' : 'bg-white/20 border-white/30 opacity-60'}`}
+                className={`flex flex-col p-2 sm:p-3 rounded-2xl sm:rounded-3xl border transition-[background-color,box-shadow,transform] duration-300 ${calDay.isToday ? 'bg-indigo-50/80 border-indigo-200 shadow-[inset_0_0_20px_rgba(99,102,241,0.1)] ring-2 ring-primary/20 ring-offset-2' : calDay.isCurrentMonth ? 'bg-white/60 border-white/80 hover:bg-white/90 hover:shadow-xl hover:-translate-y-1' : 'bg-white/20 border-white/30 opacity-60'}`}
               >
                 <div className="flex justify-between items-start mb-1 sm:mb-2">
                   <span className={`w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-xl sm:rounded-2xl text-[11px] sm:text-[13px] font-black tracking-tight ${calDay.isToday ? 'bg-gradient-to-br from-[#4facfe] to-[#6b47ff] text-white shadow-md shadow-indigo-500/30' : calDay.isCurrentMonth ? 'text-slate-800 bg-white/50' : 'text-slate-400'}`}>
@@ -186,7 +186,7 @@ export default function Calendario() {
                       <div 
                         key={t.id} 
                         onClick={() => { setSelectedTarea(t); setIsHistoryOpen(true); }}
-                        className={`truncate text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg cursor-pointer transition-all border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
+                        className={`truncate text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg cursor-pointer transition-[box-shadow,transform,opacity] border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
                         title={t.titulo}
                       >
                         {t.titulo}
