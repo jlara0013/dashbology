@@ -34,9 +34,7 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-sky-50">
-      {/* Decorative background blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] mix-blend-multiply pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-300/30 rounded-full blur-[120px] mix-blend-multiply pointer-events-none" />
+      {/* Background blobs handled by body::before / body::after in index.css */}
 
       <motion.div 
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -50,7 +48,7 @@ export default function Auth() {
           
           <div className="text-center mb-8">
             <div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 mb-6 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-              <span className="material-symbols-outlined text-white text-3xl">blur_on</span>
+              <span className="material-symbols-outlined text-white text-3xl">dashboard_customize</span>
             </div>
             <h1 className="text-3xl font-headline font-black text-slate-900 tracking-tight mb-2">Dashbology</h1>
             <p className="text-sm text-slate-500 font-medium px-4">
