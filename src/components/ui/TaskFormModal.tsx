@@ -165,7 +165,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Estado Incial</label>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Estado Inicial</label>
                       <select
                         name="estado"
                         value={formData.estado}
