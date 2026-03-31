@@ -26,7 +26,7 @@ export function TopBar() {
         <div className="flex items-center gap-3 bg-white/40 pl-3 pr-1 py-1 rounded-2xl border border-white/50">
           <div className="text-right">
             <p className="font-bold text-slate-900 text-[12px] leading-tight">Alejandro Rivera</p>
-            <p className="text-[9px] text-slate-500 font-semibold tracking-wider uppercase">Director Creativo</p>
+            <p className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase">Director Creativo</p>
           </div>
           <img 
             alt="Foto de perfil" 

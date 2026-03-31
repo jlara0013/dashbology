@@ -23,7 +23,7 @@ export function Sidebar() {
         </div>
         <div>
           <h1 className="text-sm font-extrabold leading-tight tracking-tight text-slate-900">Gestión Premium</h1>
-          <p className="text-[8px] uppercase tracking-[0.15em] font-bold mt-0.5 text-slate-600">Edición Editorial</p>
+          <p className="text-[10px] uppercase tracking-[0.15em] font-bold mt-0.5 text-slate-600">Edición Editorial</p>
         </div>
       </div>
       
@@ -49,7 +49,7 @@ export function Sidebar() {
       </nav>
       
       <div className="rounded-2xl p-4 space-y-3 mt-4 bg-white/20 border border-white/40">
-        <h3 className="text-[9px] font-bold uppercase tracking-[0.1em] px-1 text-slate-600">Próximas Entregas</h3>
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.1em] px-1 text-slate-600">Próximas Entregas</h3>
         <div className="space-y-2">
           <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">
             <div className="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center text-amber-500">
@@ -57,7 +57,7 @@ export function Sidebar() {
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-700 leading-tight">Reporte Q3</p>
-              <p className="text-[8px] text-slate-500 font-medium">En 2 días</p>
+              <p className="text-[10px] text-slate-500 font-medium">En 2 días</p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">
@@ -66,7 +66,7 @@ export function Sidebar() {
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-700 leading-tight">Logo Final</p>
-              <p className="text-[8px] text-slate-500 font-medium">En 4 días</p>
+              <p className="text-[10px] text-slate-500 font-medium">En 4 días</p>
             </div>
           </div>
         </div>
