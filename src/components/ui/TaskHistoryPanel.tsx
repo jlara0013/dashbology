@@ -100,13 +100,13 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
                     onChange={(e) => setNewNote(e.target.value)}
                     placeholder="Registra una nueva acción o nota..."
                     rows={3}
-                    className="w-full text-sm font-medium text-slate-700 placeholder:text-slate-400 bg-transparent border-none outline-none resize-none px-2 py-1"
+                    className="w-full text-sm font-medium text-slate-700 placeholder:text-slate-400 bg-transparent border-none outline-none resize-none px-2 py-1 focus-visible:ring-2 focus-visible:ring-primary/20 rounded"
                   />
                   <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-50">
                     <select
                       value={newType}
                       onChange={(e: any) => setNewType(e.target.value)}
-                      className="text-xs font-bold text-slate-500 bg-slate-50 border-none outline-none rounded-lg px-2 py-1 cursor-pointer hover:bg-slate-100"
+                      className="text-xs font-bold text-slate-500 bg-slate-50 border-none outline-none rounded-lg px-2 py-1 cursor-pointer hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-primary/20"
                     >
                       <option value="nota">📝 Observación</option>
                       <option value="recordatorio">🔔 Recordatorio</option>

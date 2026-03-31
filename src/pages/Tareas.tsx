@@ -172,7 +172,7 @@ const Tareas = () => {
                       {renderStatusDropdown(tarea)}
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="text-slate-300 hover:text-primary transition-colors focus:outline-none">
+                      <button className="text-slate-300 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 rounded-lg">
                         <span className="material-symbols-outlined text-xl">open_in_new</span>
                       </button>
                     </td>
