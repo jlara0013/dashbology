@@ -8,7 +8,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-0.5 border-0',
+          'liquid-btn bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white shadow-lg shadow-indigo-500/20 hover:shadow-xl hover:shadow-indigo-500/35 hover:-translate-y-0.5 border-0',
         secondary:
           'bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 hover:-translate-y-0.5',
         tertiary:

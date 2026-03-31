@@ -16,7 +16,7 @@ export function Sidebar() {
   const { signOut } = useAuth();
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-[220px] z-50 backdrop-blur-3xl flex flex-col p-5 space-y-4 font-headline text-[12px] border-r overflow-y-auto no-scrollbar bg-white/40 border-white/50 shadow-xl">
+    <aside className="fixed left-0 top-0 h-full w-[220px] z-50 glass-sidebar flex flex-col p-5 space-y-4 font-headline text-[12px] overflow-y-auto no-scrollbar">
       <div className="flex items-center gap-2.5 mb-2 px-1">
         <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-xl shadow-primary/30">
           <span className="material-symbols-outlined text-xl">rocket_launch</span>

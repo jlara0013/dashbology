@@ -1,6 +1,6 @@
 export function TopBar() {
   return (
-    <header className="fixed top-0 right-0 w-[calc(100%-220px)] z-40 bg-white/10 backdrop-blur-3xl flex justify-between items-center px-8 h-16 border-b border-white/20 font-headline">
+    <header className="fixed top-0 right-0 w-[calc(100%-220px)] z-40 glass-topbar flex justify-between items-center px-8 h-16 font-headline">
       <div className="flex items-center bg-white/40 border border-white/50 rounded-2xl px-4 py-2 w-80 focus-within:w-96 transition-all duration-300 shadow-sm">
         <span className="material-symbols-outlined text-slate-500 mr-3 text-lg">search</span>
         <input 
