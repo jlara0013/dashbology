@@ -40,28 +40,6 @@ function DonutChart({ segments }: { segments: { value: number; color: string; la
   );
 }
 
-// ─── Horizontal bar ─────────────────────────────────────────────────────────
-function HBar({ label, value, max, color, icon }: { label: string; value: number; max: number; color: string; icon: string }) {
-  const pct = max === 0 ? 0 : Math.round((value / max) * 100);
-  return (
-    <div className="flex items-center gap-3">
-      <span className={`material-symbols-outlined text-[16px] ${color} flex-shrink-0`}>{icon}</span>
-      <div className="flex-1 min-w-0">
-        <div className="flex justify-between items-center mb-1">
-          <span className="text-[11px] font-bold text-slate-600 capitalize">{label}</span>
-          <span className="text-[11px] font-extrabold text-slate-800">{value}</span>
-        </div>
-        <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-700`}
-            style={{ width: `${pct}%`, background: color.replace('text-', '') }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ─── Vertical bar ───────────────────────────────────────────────────────────
 function VBar({ label, value, max, sublabel }: { label: string; value: number; max: number; sublabel?: string }) {
   const pct = max === 0 ? 0 : Math.round((value / max) * 100);
