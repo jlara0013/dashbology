@@ -24,7 +24,7 @@ const Tareas = () => {
   };
 
   const renderStatusDropdown = (tarea: any) => {
-    const baseClass = "pl-2.5 pr-6 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider cursor-pointer appearance-none bg-transparent outline-none border focus:ring-2 focus:ring-primary/20 ";
+    const baseClass = "pl-2.5 pr-6 py-1 text-[10px] font-bold rounded-lg uppercase tracking-wider cursor-pointer appearance-none bg-transparent outline-none border focus:ring-2 focus:ring-primary/20 ";
     let colorClass = "";
     
     switch(tarea.estado) {
@@ -53,10 +53,10 @@ const Tareas = () => {
 
   const renderPriorityBadge = (prioridad: string) => {
     switch(prioridad) {
-      case 'critica': return <span className="px-2.5 py-1 bg-red-500/10 text-red-500 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-red-500/10">Crítica</span>;
-      case 'alta': return <span className="px-2.5 py-1 bg-amber-500/10 text-amber-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-amber-500/10">Alta</span>;
-      case 'baja': return <span className="px-2.5 py-1 bg-slate-500/10 text-slate-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-slate-500/10">Baja</span>;
-      default: return <span className="px-2.5 py-1 bg-blue-500/10 text-blue-600 text-[9px] font-bold rounded-lg uppercase tracking-wider border border-blue-500/10">Media</span>;
+      case 'critica': return <span className="px-2.5 py-1 bg-red-500/10 text-red-500 text-[10px] font-bold rounded-lg uppercase tracking-wider border border-red-500/10">Crítica</span>;
+      case 'alta': return <span className="px-2.5 py-1 bg-amber-500/10 text-amber-600 text-[10px] font-bold rounded-lg uppercase tracking-wider border border-amber-500/10">Alta</span>;
+      case 'baja': return <span className="px-2.5 py-1 bg-slate-500/10 text-slate-600 text-[10px] font-bold rounded-lg uppercase tracking-wider border border-slate-500/10">Baja</span>;
+      default: return <span className="px-2.5 py-1 bg-blue-500/10 text-blue-600 text-[10px] font-bold rounded-lg uppercase tracking-wider border border-blue-500/10">Media</span>;
     }
   };
 
