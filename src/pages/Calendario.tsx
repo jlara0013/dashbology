@@ -171,7 +171,7 @@ export default function Calendario() {
                   </span>
                   
                   {dayTasks.length > 0 && (
-                    <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 text-[9px] font-bold text-slate-500 hidden sm:flex">
+                    <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 text-[10px] font-bold text-slate-500 hidden sm:flex">
                       {dayTasks.length}
                     </div>
                   )}
@@ -186,7 +186,7 @@ export default function Calendario() {
                       <div 
                         key={t.id} 
                         onClick={() => { setSelectedTarea(t); setIsHistoryOpen(true); }}
-                        className={`truncate text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg cursor-pointer transition-all border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
+                        className={`truncate text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg cursor-pointer transition-all border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
                         title={t.titulo}
                       >
                         {t.titulo}
@@ -195,7 +195,7 @@ export default function Calendario() {
                   })}
                   
                   {dayTasks.length > 3 && (
-                    <div className="text-[9px] sm:text-[10px] font-bold text-slate-400 pl-1">
+                    <div className="text-[10px] font-bold text-slate-400 pl-1">
                       + {dayTasks.length - 3} más
                     </div>
                   )}

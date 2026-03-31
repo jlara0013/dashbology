@@ -55,7 +55,7 @@ function VBar({ label, value, max, sublabel }: { label: string; value: number; m
         </div>
       </div>
       <span className="text-[10px] font-bold text-slate-400 text-center leading-tight">{label}</span>
-      {sublabel && <span className="text-[9px] text-slate-400">{sublabel}</span>}
+      {sublabel && <span className="text-[10px] text-slate-400">{sublabel}</span>}
     </div>
   );
 }
