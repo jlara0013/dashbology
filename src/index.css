@@ -16,17 +16,17 @@
 
 @layer base {
   :root {
-    --liquid-bg: #e5eaf5;
+    --liquid-bg: #f2f5fb;
   }
-  
+
   body {
     background-color: var(--liquid-bg);
-    background-image: 
-        radial-gradient(at 10% 20%, rgba(0, 74, 198, 0.25) 0px, transparent 40%),
-        radial-gradient(at 90% 10%, rgba(124, 58, 237, 0.2) 0px, transparent 40%),
-        radial-gradient(at 100% 80%, rgba(14, 165, 233, 0.25) 0px, transparent 40%),
-        radial-gradient(at 0% 90%, rgba(67, 56, 202, 0.15) 0px, transparent 40%),
-        radial-gradient(at 50% 50%, rgba(137, 206, 255, 0.1) 0px, transparent 50%);
+    background-image:
+        radial-gradient(at 10% 20%, rgba(0, 74, 198, 0.10) 0px, transparent 40%),
+        radial-gradient(at 90% 10%, rgba(124, 58, 237, 0.08) 0px, transparent 40%),
+        radial-gradient(at 100% 80%, rgba(14, 165, 233, 0.10) 0px, transparent 40%),
+        radial-gradient(at 0% 90%, rgba(67, 56, 202, 0.06) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(137, 206, 255, 0.05) 0px, transparent 50%);
     background-attachment: fixed;
     font-size: 0.8125rem;
     letter-spacing: 0.01em;
