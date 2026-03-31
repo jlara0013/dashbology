@@ -122,7 +122,56 @@ const Tareas = () => {
           </div>
         </div>
         
-        <div className="overflow-x-auto">
+        {/* Mobile card list — hidden on md+ */}
+        <div className="md:hidden divide-y divide-white/20">
+          {isLoading ? (
+            <div className="px-6 py-10 text-center text-slate-500 font-medium text-xs">Cargando tareas...</div>
+          ) : filteredTareas.length === 0 ? (
+            <div className="px-6 py-10 text-center text-slate-500 font-medium text-xs">No hay tareas que coincidan con el filtro actual.</div>
+          ) : (
+            filteredTareas.map((tarea) => {
+              const isOverdue = tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada');
+              return (
+                <div
+                  key={tarea.id}
+                  onClick={() => openHistory(tarea)}
+                  className="px-5 py-4 flex flex-col gap-3 cursor-pointer hover:bg-white/5 transition-colors"
+                >
+                  {/* Title row */}
+                  <div className="flex items-start gap-3">
+                    <span className={`material-symbols-outlined text-lg mt-0.5 flex-shrink-0 ${tarea.estado === 'completada' ? 'text-emerald-500' : 'text-primary'}`}>
+                      {tarea.estado === 'completada' ? 'check_circle' : 'radio_button_checked'}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-bold text-slate-900 text-[13px] tracking-tight leading-snug">{tarea.titulo}</p>
+                      {tarea.descripcion && <p className="text-[10px] text-slate-500 truncate mt-0.5">{tarea.descripcion}</p>}
+                    </div>
+                  </div>
+                  {/* Meta row */}
+                  <div className="flex items-center gap-2 flex-wrap pl-8">
+                    {renderPriorityBadge(tarea.prioridad || 'media')}
+                    <span className={`flex items-center gap-1 text-[10px] font-semibold ${isOverdue ? 'text-red-500' : 'text-slate-500'}`}>
+                      <span className="material-symbols-outlined text-[12px]">calendar_today</span>
+                      {tarea.fecha_limite ? new Date(tarea.fecha_limite).toLocaleDateString() : 'Sin Fecha'}
+                    </span>
+                    {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) && (
+                      <div className="w-5 h-5 rounded-md border border-white bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">
+                        {usuarioMap.get(tarea.responsable_id)!.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  {/* Status row */}
+                  <div className="pl-8" onClick={e => e.stopPropagation()}>
+                    {renderStatusDropdown(tarea)}
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Desktop table — hidden on mobile */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white/5">
@@ -203,7 +252,7 @@ const Tareas = () => {
           </table>
         </div>
       </div>
-      
+
       {/* Task History Sidebar Panel */}
       <TaskHistoryPanel 
         isOpen={isHistoryOpen} 
