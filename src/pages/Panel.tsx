@@ -77,7 +77,7 @@ const Panel = () => {
         {/* Card: Hoy */}
         <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
           <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-blue-500/5 select-none pointer-events-none">today</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Hoy</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Hoy</span>
           <div>
             <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{String(metrics.hoy).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas del Día</p>
@@ -88,7 +88,7 @@ const Panel = () => {
         {/* Card: En Marcha */}
         <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
           <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-amber-500/5 select-none pointer-events-none">bolt</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">En Marcha</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">En Marcha</span>
           <div>
             <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{String(metrics.enMarcha).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Actividades Activas</p>
@@ -99,7 +99,7 @@ const Panel = () => {
         {/* Card: Crítico */}
         <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
           <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-red-500/5 select-none pointer-events-none">priority_high</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Crítico</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Crítico</span>
           <div>
             <h3 className="text-4xl font-headline font-black text-red-500 tracking-tight tabular-nums">{String(metrics.retrasadas).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas Retrasadas</p>
@@ -110,7 +110,7 @@ const Panel = () => {
         {/* Card: KPI */}
         <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
           <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-emerald-500/5 select-none pointer-events-none">trending_up</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">KPI</span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">KPI</span>
           <div>
             <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{metrics.kpi}%</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Índice de Productividad</p>

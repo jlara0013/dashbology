@@ -100,7 +100,7 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
                     onChange={(e) => setNewNote(e.target.value)}
                     placeholder="Registra una nueva acción o nota..."
                     rows={3}
-                    className="w-full text-sm font-medium text-slate-700 placeholder:text-slate-400 bg-transparent border-none outline-none resize-none px-2 py-1 focus-visible:ring-2 focus-visible:ring-primary/20 rounded"
+                    className="w-full text-sm font-medium text-slate-700 placeholder:text-slate-500 bg-transparent border-none outline-none resize-none px-2 py-1 focus-visible:ring-2 focus-visible:ring-primary/20 rounded"
                   />
                   <div className="flex justify-between items-center mt-3 pt-3 border-t border-slate-50">
                     <select
@@ -123,11 +123,11 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
 
               {/* Feed de Seguimientos */}
               <div>
-                <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-400 mb-4 ml-1">Bitácora de Seguimientos ({seguimientos.length})</h3>
+                <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 ml-1">Bitácora de Seguimientos ({seguimientos.length})</h3>
                 {isLoading ? (
-                  <p className="text-xs text-slate-400 font-medium">Cargando...</p>
+                  <p className="text-xs text-slate-500 font-medium">Cargando...</p>
                 ) : seguimientos.length === 0 ? (
-                  <p className="text-xs text-slate-400 font-medium italic">No hay registros manuales para esta tarea.</p>
+                  <p className="text-xs text-slate-500 font-medium italic">No hay registros manuales para esta tarea.</p>
                 ) : (
                   <div className="space-y-4 relative before:absolute before:inset-y-0 before:left-5 before:w-[2px] before:bg-slate-100">
                     {seguimientos.map((seg) => {
@@ -139,8 +139,8 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
                           </div>
                           <div className="flex-1 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                             <div className="flex justify-between items-center mb-1">
-                              <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">{seg.tipo}</span>
-                              <span className="text-[10px] font-semibold text-slate-400">{new Date(seg.fecha_seguimiento).toLocaleDateString()}</span>
+                              <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">{seg.tipo}</span>
+                              <span className="text-[10px] font-semibold text-slate-500">{new Date(seg.fecha_seguimiento).toLocaleDateString()}</span>
                             </div>
                             <p className="text-[13px] font-medium text-slate-700 leading-relaxed">{seg.nota}</p>
                             

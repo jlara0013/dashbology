@@ -80,7 +80,7 @@ export default function Ajustes() {
     { id: 'sesion', label: 'Sesión', icon: 'logout' },
   ];
 
-  const inputClass = "w-full bg-white/70 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 text-slate-700 font-medium text-sm placeholder:text-slate-400";
+  const inputClass = "w-full bg-white/70 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 text-slate-700 font-medium text-sm placeholder:text-slate-500";
 
   return (
     <div className="mt-20 space-y-8 animate-in fade-in duration-500 w-full max-w-[860px]">
@@ -115,17 +115,17 @@ export default function Ajustes() {
           {activeSection === 'perfil' && (
             <div className="glass-panel p-7 rounded-3xl border border-white/50 bg-white/30">
               <h2 className="text-base font-extrabold text-slate-800 mb-1">Información Personal</h2>
-              <p className="text-xs text-slate-400 mb-6">Visible dentro de tu espacio de trabajo.</p>
+              <p className="text-xs text-slate-500 mb-6">Visible dentro de tu espacio de trabajo.</p>
 
               {isLoadingPerfil ? (
-                <div className="flex items-center gap-2 text-slate-400 text-sm">
+                <div className="flex items-center gap-2 text-slate-500 text-sm">
                   <span className="material-symbols-outlined animate-spin text-base">refresh</span>
                   Cargando perfil...
                 </div>
               ) : (
                 <form onSubmit={handleSavePerfil} className="space-y-5">
                   <div>
-                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Nombre Completo</label>
+                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Nombre Completo</label>
                     <input
                       type="text"
                       value={perfil.nombre_completo}
@@ -136,7 +136,7 @@ export default function Ajustes() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Rol / Cargo</label>
+                      <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Rol / Cargo</label>
                       <input
                         type="text"
                         value={perfil.rol}
@@ -146,7 +146,7 @@ export default function Ajustes() {
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Equipo / Área</label>
+                      <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Equipo / Área</label>
                       <input
                         type="text"
                         value={perfil.equipo}
@@ -179,9 +179,9 @@ export default function Ajustes() {
               {/* Email (read-only) */}
               <div className="glass-panel p-7 rounded-3xl border border-white/50 bg-white/30">
                 <h2 className="text-base font-extrabold text-slate-800 mb-1">Correo Electrónico</h2>
-                <p className="text-xs text-slate-400 mb-5">Tu correo de acceso. Contacta soporte para cambiarlo.</p>
+                <p className="text-xs text-slate-500 mb-5">Tu correo de acceso. Contacta soporte para cambiarlo.</p>
                 <div className="flex items-center gap-3 bg-slate-100/60 px-4 py-3 rounded-xl">
-                  <span className="material-symbols-outlined text-slate-400 text-base">mail</span>
+                  <span className="material-symbols-outlined text-slate-500 text-base">mail</span>
                   <span className="text-sm font-semibold text-slate-600">{user?.email}</span>
                   <span className="ml-auto px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 text-[10px] font-extrabold rounded-lg border border-emerald-200/20 uppercase tracking-widest">Verificado</span>
                 </div>
@@ -190,10 +190,10 @@ export default function Ajustes() {
               {/* Change password */}
               <div className="glass-panel p-7 rounded-3xl border border-white/50 bg-white/30">
                 <h2 className="text-base font-extrabold text-slate-800 mb-1">Cambiar Contraseña</h2>
-                <p className="text-xs text-slate-400 mb-5">Mínimo 6 caracteres.</p>
+                <p className="text-xs text-slate-500 mb-5">Mínimo 6 caracteres.</p>
                 <form onSubmit={handleChangePassword} className="space-y-4">
                   <div>
-                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Nueva Contraseña</label>
+                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Nueva Contraseña</label>
                     <input
                       type="password"
                       value={newPassword}
@@ -204,7 +204,7 @@ export default function Ajustes() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Confirmar Contraseña</label>
+                    <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Confirmar Contraseña</label>
                     <input
                       type="password"
                       value={confirmPassword}
@@ -235,7 +235,7 @@ export default function Ajustes() {
           {activeSection === 'sesion' && (
             <div className="glass-panel p-7 rounded-3xl border border-white/50 bg-white/30">
               <h2 className="text-base font-extrabold text-slate-800 mb-1">Sesión Activa</h2>
-              <p className="text-xs text-slate-400 mb-6">Cerrar sesión te desconectará de todos los dispositivos.</p>
+              <p className="text-xs text-slate-500 mb-6">Cerrar sesión te desconectará de todos los dispositivos.</p>
 
               <div className="flex items-center gap-4 p-4 bg-white/50 rounded-2xl border border-white/60 mb-6">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#4facfe] to-[#6b47ff] flex items-center justify-center text-white font-extrabold text-sm shadow-lg shadow-indigo-500/20">
@@ -243,7 +243,7 @@ export default function Ajustes() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-slate-800">{user?.email}</p>
-                  <p className="text-[11px] text-slate-400 font-medium">Sesión activa</p>
+                  <p className="text-[11px] text-slate-500 font-medium">Sesión activa</p>
                 </div>
                 <span className="ml-auto w-2 h-2 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/60" />
               </div>

@@ -15,7 +15,7 @@ export function RightPanel() {
             <div className="w-full bg-slate-200 rounded-full h-1.5 mb-1">
               <div className="bg-primary-container h-1.5 rounded-full w-[87%]"></div>
             </div>
-            <p className="text-xs text-slate-400 mt-2">+5% respecto a la semana pasada</p>
+            <p className="text-xs text-slate-500 mt-2">+5% respecto a la semana pasada</p>
           </Card>
 
           <div>
@@ -32,7 +32,7 @@ export function RightPanel() {
                 <div className="absolute -left-5 top-1 w-3 h-3 rounded-full bg-primary-container border-2 border-white shadow-sm z-10" />
                 <p className="text-sm font-medium text-slate-800">Nueva tarea asignada por Ana</p>
                 <p className="text-xs text-slate-500 mt-1">Revisar reporte de métricas</p>
-                <p className="text-xs text-slate-400 mt-1">Hace 4 horas</p>
+                <p className="text-xs text-slate-500 mt-1">Hace 4 horas</p>
               </div>
 
             </div>

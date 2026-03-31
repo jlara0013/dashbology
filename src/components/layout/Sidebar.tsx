@@ -95,7 +95,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         <h3 className="text-[10px] font-bold uppercase tracking-[0.1em] px-1 text-slate-600">Próximas Entregas</h3>
         <div className="space-y-2">
           {proximas.length === 0 ? (
-            <p className="text-[10px] text-slate-400 font-medium px-1">Sin entregas próximas.</p>
+            <p className="text-[10px] text-slate-500 font-medium px-1">Sin entregas próximas.</p>
           ) : (
             proximas.map(t => (
               <div key={t.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">

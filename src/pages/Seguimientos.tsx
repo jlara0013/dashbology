@@ -112,7 +112,7 @@ export default function Seguimientos() {
           <form onSubmit={handleCreate} className="space-y-4">
 
             <div>
-              <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Tarea vinculada</label>
+              <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Tarea vinculada</label>
               <select
                 value={form.tarea_id}
                 onChange={e => setForm(f => ({ ...f, tarea_id: e.target.value }))}
@@ -128,7 +128,7 @@ export default function Seguimientos() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Tipo</label>
+                <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Tipo</label>
                 <select
                   value={form.tipo}
                   onChange={e => setForm(f => ({ ...f, tipo: e.target.value as any }))}
@@ -141,7 +141,7 @@ export default function Seguimientos() {
                 </select>
               </div>
               <div>
-                <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Fecha y hora</label>
+                <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Fecha y hora</label>
                 <input
                   type="datetime-local"
                   value={form.fecha_seguimiento}
@@ -153,7 +153,7 @@ export default function Seguimientos() {
             </div>
 
             <div>
-              <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-400 mb-1.5">Nota (opcional)</label>
+              <label className="block text-[10px] font-extrabold uppercase tracking-widest text-slate-500 mb-1.5">Nota (opcional)</label>
               <textarea
                 value={form.nota}
                 onChange={e => setForm(f => ({ ...f, nota: e.target.value }))}
@@ -247,7 +247,7 @@ export default function Seguimientos() {
                 <div className="flex items-start gap-4 p-5">
                   {/* Position indicator */}
                   {!seg.completado && (
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100/80 flex items-center justify-center text-[11px] font-black text-slate-400 mt-0.5">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-slate-100/80 flex items-center justify-center text-[11px] font-black text-slate-500 mt-0.5">
                       {idx + 1}
                     </div>
                   )}
@@ -268,7 +268,7 @@ export default function Seguimientos() {
 
                       {/* Overdue badge */}
                       {overdue && (
-                        <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-500 border border-red-500/15">
+                        <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-700 border border-red-500/15">
                           Vencido
                         </span>
                       )}
@@ -277,7 +277,7 @@ export default function Seguimientos() {
                     {/* Task title */}
                     <p className="text-slate-800 font-semibold text-sm leading-snug truncate">
                       {tareaRef && (
-                        <span className="text-slate-400 font-bold mr-1.5">{tareaRef}</span>
+                        <span className="text-slate-500 font-bold mr-1.5">{tareaRef}</span>
                       )}
                       {tareaTitle}
                     </p>
@@ -288,7 +288,7 @@ export default function Seguimientos() {
                     )}
 
                     {/* Fecha */}
-                    <p className={`text-[11px] font-bold mt-2 ${overdue ? 'text-red-400' : 'text-slate-400'}`}>
+                    <p className={`text-[11px] font-bold mt-2 ${overdue ? 'text-red-700' : 'text-slate-500'}`}>
                       <span className="material-symbols-outlined text-[13px] align-middle mr-1">schedule</span>
                       {formatFecha(seg.fecha_seguimiento)}
                     </p>

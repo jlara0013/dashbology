@@ -73,7 +73,7 @@ export default function Auth() {
 
           <form onSubmit={mode === 'login' ? handleLogin : handleSignUp} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400 pl-1">Correo Electrónico</label>
+              <label className="text-[10px] uppercase tracking-wider font-extrabold text-slate-500 pl-1">Correo Electrónico</label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
                 <input
@@ -88,7 +88,7 @@ export default function Auth() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400 pl-1">Contraseña</label>
+              <label className="text-[10px] uppercase tracking-wider font-extrabold text-slate-500 pl-1">Contraseña</label>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
                 <input
@@ -135,7 +135,7 @@ export default function Auth() {
           </div>
         </div>
         
-        <div className="mt-8 text-center text-[10px] font-medium text-slate-400">
+        <div className="mt-8 text-center text-[10px] font-medium text-slate-500">
           <p>Al acceder, aceptas nuestros Términos de Servicio y Condiciones.</p>
           <p className="mt-1 flex items-center justify-center gap-1">
             <span className="material-symbols-outlined text-[10px]">shield</span>

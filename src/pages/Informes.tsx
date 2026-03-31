@@ -5,7 +5,7 @@ import { useSeguimientos } from '../hooks/useSeguimientos';
 // ─── Mini SVG donut chart ───────────────────────────────────────────────────
 function DonutChart({ segments }: { segments: { value: number; color: string; label: string }[] }) {
   const total = segments.reduce((s, x) => s + x.value, 0);
-  if (total === 0) return <div className="w-32 h-32 rounded-full bg-slate-100/60 flex items-center justify-center text-xs text-slate-400 font-bold">Sin datos</div>;
+  if (total === 0) return <div className="w-32 h-32 rounded-full bg-slate-100/60 flex items-center justify-center text-xs text-slate-500 font-bold">Sin datos</div>;
 
   const r = 40;
   const cx = 50;
@@ -54,8 +54,8 @@ function VBar({ label, value, max, sublabel }: { label: string; value: number; m
           />
         </div>
       </div>
-      <span className="text-[10px] font-bold text-slate-400 text-center leading-tight">{label}</span>
-      {sublabel && <span className="text-[10px] text-slate-400">{sublabel}</span>}
+      <span className="text-[10px] font-bold text-slate-500 text-center leading-tight">{label}</span>
+      {sublabel && <span className="text-[10px] text-slate-500">{sublabel}</span>}
     </div>
   );
 }
@@ -188,7 +188,7 @@ export default function Informes() {
               <div className={`p-2 rounded-xl ${card.bg} border`}>
                 <span className={`material-symbols-outlined text-lg ${card.color}`}>{card.icon}</span>
               </div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{card.label}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{card.label}</span>
             </div>
             <h3 className={`text-3xl font-headline font-black tracking-tight ${card.color}`}>{card.value}</h3>
           </div>
@@ -255,7 +255,7 @@ export default function Informes() {
               <VBar key={m.key} label={m.label} value={m.total} max={maxMonth} sublabel={m.completed > 0 ? `✓${m.completed}` : undefined} />
             ))}
           </div>
-          <p className="text-[10px] text-slate-400 font-bold mt-3 uppercase tracking-widest">Tareas creadas por mes · ✓ = completadas</p>
+          <p className="text-[10px] text-slate-500 font-bold mt-3 uppercase tracking-widest">Tareas creadas por mes · ✓ = completadas</p>
         </div>
 
         {/* Category breakdown */}
@@ -292,7 +292,7 @@ export default function Informes() {
             <span className="material-symbols-outlined text-amber-600 text-xl">pending_actions</span>
           </div>
           <div>
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Seguimientos Pendientes</p>
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Seguimientos Pendientes</p>
             <h3 className="text-2xl font-black text-slate-800">{stats.segPendientes}</h3>
           </div>
         </div>
@@ -301,7 +301,7 @@ export default function Informes() {
             <span className="material-symbols-outlined text-emerald-600 text-xl">fact_check</span>
           </div>
           <div>
-            <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Seguimientos Completados</p>
+            <p className="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Seguimientos Completados</p>
             <h3 className="text-2xl font-black text-slate-800">{stats.segCompletados}</h3>
           </div>
         </div>
@@ -312,7 +312,7 @@ export default function Informes() {
         <div className="flex justify-between items-center mb-6">
           <div>
             <h2 className="text-sm font-extrabold text-slate-700 uppercase tracking-widest">Mapa de Actividad</h2>
-            <p className="text-[11px] text-slate-400 font-medium mt-0.5">Últimos 90 días · verde = alta completitud · rojo = tareas sin completar</p>
+            <p className="text-[11px] text-slate-500 font-medium mt-0.5">Últimos 90 días · verde = alta completitud · rojo = tareas sin completar</p>
           </div>
           <div className="flex gap-5">
             <div className="flex items-center gap-1.5">
