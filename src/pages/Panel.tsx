@@ -74,59 +74,48 @@ const Panel = () => {
       {/* Resumen Superior */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         
-        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
-          <div className="flex justify-between items-start">
-            <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-600 shadow-sm border border-blue-200/20 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-xl">today</span>
-            </div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Hoy</span>
-          </div>
+        {/* Card: Hoy */}
+        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+          <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-blue-500/5 select-none pointer-events-none">today</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Hoy</span>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{String(metrics.hoy).padStart(2, '0')}</h3>
+            <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{String(metrics.hoy).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas del Día</p>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-400 to-blue-600 rounded-b-3xl" />
         </div>
-        
-        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
-          <div className="flex justify-between items-start">
-            <div className="p-2.5 bg-amber-500/10 rounded-xl text-amber-600 shadow-sm border border-amber-200/20 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-xl">bolt</span>
-            </div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">En Marcha</span>
-          </div>
+
+        {/* Card: En Marcha */}
+        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+          <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-amber-500/5 select-none pointer-events-none">bolt</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">En Marcha</span>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{String(metrics.enMarcha).padStart(2, '0')}</h3>
+            <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{String(metrics.enMarcha).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Actividades Activas</p>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-400 to-amber-600 rounded-b-3xl" />
         </div>
-        
-        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 border-red-200/40 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
-          <div className="flex justify-between items-start">
-            <div className="p-2.5 bg-red-500/10 rounded-xl text-red-500 shadow-sm border border-red-200/20 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-xl">priority_high</span>
-            </div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Crítico</span>
-          </div>
+
+        {/* Card: Crítico */}
+        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+          <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-red-500/5 select-none pointer-events-none">priority_high</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Crítico</span>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-red-500 tracking-tight tabular-nums">{String(metrics.retrasadas).padStart(2, '0')}</h3>
+            <h3 className="text-4xl font-headline font-black text-red-500 tracking-tight tabular-nums">{String(metrics.retrasadas).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas Retrasadas</p>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-red-400 to-red-600 rounded-b-3xl" />
         </div>
-        
-        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-transform duration-300 cursor-default group">
-          <div className="flex justify-between items-start">
-            <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-600 shadow-sm border border-emerald-200/20 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-xl">trending_up</span>
-            </div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">KPI</span>
-          </div>
+
+        {/* Card: KPI */}
+        <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+          <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-emerald-500/5 select-none pointer-events-none">trending_up</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">KPI</span>
           <div>
-            <div className="flex items-baseline gap-2">
-              <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{metrics.kpi}%</h3>
-              <span className="text-[11px] font-extrabold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200/20 mx-2">Completado</span>
-            </div>
-            <p className="text-[11px] text-slate-500 font-medium tracking-wide">Índice de Productividad Total</p>
+            <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{metrics.kpi}%</h3>
+            <p className="text-[11px] text-slate-500 font-medium tracking-wide">Índice de Productividad</p>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-b-3xl" />
         </div>
         
       </div>
