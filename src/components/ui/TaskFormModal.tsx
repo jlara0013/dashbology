@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useTareas } from '../../hooks/useTareas';
 import { useProyectos } from '../../hooks/useProyectos';
+import { useUsuarios } from '../../hooks/useUsuarios';
 import { Button } from './Button';
 import { Input } from './Input';
 import type { Database } from '../../lib/types';
@@ -18,6 +19,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
   const { user } = useAuth();
   const { createTarea } = useTareas();
   const { proyectos } = useProyectos();
+  const { usuarios } = useUsuarios();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,9 +29,9 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     prioridad: 'media',
     categoria: 'programada',
     estado: 'pendiente',
-    fecha_limite: new Date().toISOString().split('T')[0], // Today's date YYYY-MM-DD
+    fecha_limite: new Date().toISOString().split('T')[0],
     proyecto_id: null,
-
+    responsable_id: user?.id ?? null,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -45,7 +47,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     const { error } = await createTarea({
       ...formData as InsertTarea,
       user_id: user.id,
-      // responsable_id is omitted since auth trigger for public.usuarios is not in place yet
+      responsable_id: formData.responsable_id ?? user.id,
     });
 
     setLoading(false);
@@ -61,6 +63,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
         estado: 'pendiente',
         fecha_limite: new Date().toISOString().split('T')[0],
         proyecto_id: null,
+        responsable_id: user.id,
       });
     }
   };
@@ -178,19 +181,36 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Proyecto (Opcional)</label>
-                    <select
-                      name="proyecto_id"
-                      value={formData.proyecto_id || ''}
-                      onChange={handleChange}
-                      className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
-                    >
-                      <option value="">Ninguno</option>
-                      {proyectos.map(p => (
-                        <option key={p.id} value={p.id}>{p.nombre}</option>
-                      ))}
-                    </select>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Responsable</label>
+                      <select
+                        name="responsable_id"
+                        value={formData.responsable_id || ''}
+                        onChange={handleChange}
+                        className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
+                      >
+                        {usuarios.map(u => (
+                          <option key={u.id} value={u.id}>
+                            {u.nombre_completo || u.id.slice(0, 8)}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Proyecto (Opcional)</label>
+                      <select
+                        name="proyecto_id"
+                        value={formData.proyecto_id || ''}
+                        onChange={handleChange}
+                        className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
+                      >
+                        <option value="">Ninguno</option>
+                        {proyectos.map(p => (
+                          <option key={p.id} value={p.id}>{p.nombre}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
                   <div>

@@ -17,7 +17,7 @@ export interface Database {
           estado: 'pendiente' | 'en_progreso' | 'completada' | 'vencida' | 'archivada'
           prioridad: 'critica' | 'alta' | 'media' | 'baja'
           categoria: 'urgente' | 'reporte' | 'recurrente' | 'delegada' | 'programada' | 'fijada'
-          responsable_id: string
+          responsable_id: string | null
           delegada_a: string | null
           proyecto_id: string | null
           fecha_limite: string
@@ -34,7 +34,7 @@ export interface Database {
           estado?: 'pendiente' | 'en_progreso' | 'completada' | 'vencida' | 'archivada'
           prioridad?: 'critica' | 'alta' | 'media' | 'baja'
           categoria?: 'urgente' | 'reporte' | 'recurrente' | 'delegada' | 'programada' | 'fijada'
-          responsable_id: string
+          responsable_id?: string | null
           delegada_a?: string | null
           proyecto_id?: string | null
           fecha_limite: string

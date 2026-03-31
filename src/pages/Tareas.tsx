@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTareas } from '../hooks/useTareas';
+import { useUsuarios } from '../hooks/useUsuarios';
 import { useModal } from '../context/ModalContext';
 import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
 
@@ -7,7 +8,13 @@ type FilterType = 'all' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completada
 
 const Tareas = () => {
   const { tareas, isLoading, updateTarea } = useTareas();
+  const { usuarios } = useUsuarios();
   const { openTaskModal } = useModal();
+
+  const usuarioMap = useMemo(
+    () => new Map(usuarios.map(u => [u.id, u.nombre_completo || u.id.slice(0, 8)])),
+    [usuarios]
+  );
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   
   // History Panel State
@@ -163,9 +170,20 @@ const Tareas = () => {
                     </td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-lg border-2 border-white bg-slate-200 flex items-center justify-center shadow-md">
-                           <span className="material-symbols-outlined text-[14px] text-slate-500">person</span>
-                        </div>
+                        {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) ? (
+                          <>
+                            <div className="w-7 h-7 rounded-lg border-2 border-white bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-md text-white text-[10px] font-bold flex-shrink-0">
+                              {usuarioMap.get(tarea.responsable_id)!.charAt(0).toUpperCase()}
+                            </div>
+                            <span className="text-[11px] font-semibold text-slate-600 truncate max-w-[80px]">
+                              {usuarioMap.get(tarea.responsable_id)}
+                            </span>
+                          </>
+                        ) : (
+                          <div className="w-7 h-7 rounded-lg border-2 border-white bg-slate-200 flex items-center justify-center shadow-md">
+                            <span className="material-symbols-outlined text-[14px] text-slate-500">person</span>
+                          </div>
+                        )}
                       </div>
                     </td>
                     <td className="px-8 py-5">
