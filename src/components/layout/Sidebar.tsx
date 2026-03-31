@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useModal } from '../../context/ModalContext';
 import { useAuth } from '../../context/AuthContext';
+import { useTareas } from '../../hooks/useTareas';
 
 const navItems = [
   { name: 'Panel Principal', path: '/panel', icon: 'dashboard' },
@@ -11,12 +13,52 @@ const navItems = [
   { name: 'Reportes', path: '/informes', icon: 'insert_chart' },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function getRelativeDate(dateStr: string): string {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const target = new Date(dateStr + 'T00:00:00');
+  const diff = Math.round((target.getTime() - today.getTime()) / 86400000);
+  if (diff < 0) return 'Vencida';
+  if (diff === 0) return 'Hoy';
+  if (diff === 1) return 'Mañana';
+  return `En ${diff} días`;
+}
+
+const categoriaIcon: Record<string, string> = {
+  urgente: 'priority_high',
+  reporte: 'description',
+  recurrente: 'repeat',
+  programada: 'calendar_today',
+};
+
+const prioridadColor: Record<string, string> = {
+  critica: 'bg-red-500/20 text-red-500',
+  alta: 'bg-amber-500/20 text-amber-500',
+  media: 'bg-blue-500/20 text-blue-500',
+  baja: 'bg-slate-500/20 text-slate-500',
+};
+
+export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { openTaskModal } = useModal();
   const { signOut } = useAuth();
+  const { tareas } = useTareas();
+
+  const proximas = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0];
+    return tareas
+      .filter(t => t.fecha_limite && t.estado !== 'completada')
+      .sort((a, b) => (a.fecha_limite! > b.fecha_limite! ? 1 : -1))
+      .filter(t => t.fecha_limite! >= today)
+      .slice(0, 3);
+  }, [tareas]);
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-[220px] z-50 glass-sidebar flex flex-col p-5 space-y-4 font-headline text-[12px] overflow-y-auto no-scrollbar">
+    <aside className={`fixed left-0 top-0 h-full w-[220px] z-50 glass-sidebar flex flex-col p-5 space-y-4 font-headline text-[12px] overflow-y-auto no-scrollbar transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
       <div className="flex items-center gap-2.5 mb-2 px-1">
         <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-xl shadow-primary/30">
           <span className="material-symbols-outlined text-xl">rocket_launch</span>
@@ -32,6 +74,7 @@ export function Sidebar() {
           <NavLink
             key={item.path}
             to={item.path}
+            onClick={onClose}
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 group ${
                 isActive
@@ -51,24 +94,23 @@ export function Sidebar() {
       <div className="rounded-2xl p-4 space-y-3 mt-4 bg-white/20 border border-white/40">
         <h3 className="text-[10px] font-bold uppercase tracking-[0.1em] px-1 text-slate-600">Próximas Entregas</h3>
         <div className="space-y-2">
-          <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">
-            <div className="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center text-amber-500">
-              <span className="material-symbols-outlined text-base">description</span>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-700 leading-tight">Reporte Q3</p>
-              <p className="text-[10px] text-slate-500 font-medium">En 2 días</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">
-            <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center text-blue-500">
-              <span className="material-symbols-outlined text-base">palette</span>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-700 leading-tight">Logo Final</p>
-              <p className="text-[10px] text-slate-500 font-medium">En 4 días</p>
-            </div>
-          </div>
+          {proximas.length === 0 ? (
+            <p className="text-[10px] text-slate-400 font-medium px-1">Sin entregas próximas.</p>
+          ) : (
+            proximas.map(t => (
+              <div key={t.id} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/50 border border-white/30">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${prioridadColor[t.prioridad || 'media']}`}>
+                  <span className="material-symbols-outlined text-base">
+                    {categoriaIcon[t.categoria || ''] || 'task_alt'}
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold text-slate-700 leading-tight truncate">{t.titulo}</p>
+                  <p className="text-[10px] text-slate-500 font-medium">{getRelativeDate(t.fecha_limite!)}</p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
       

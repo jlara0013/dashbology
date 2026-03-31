@@ -1,14 +1,27 @@
 import { useAuth } from '../../context/AuthContext';
 
-export function TopBar() {
+interface TopBarProps {
+  onMobileMenuToggle: () => void;
+}
+
+export function TopBar({ onMobileMenuToggle }: TopBarProps) {
   const { user } = useAuth();
 
   const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Usuario';
   const initials = displayName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 
   return (
-    <header className="fixed top-0 right-0 w-[calc(100%-220px)] z-40 glass-topbar flex justify-between items-center px-8 h-16 font-headline">
-      <div className="flex items-center bg-white/40 border border-white/50 rounded-2xl px-4 py-2 w-80 focus-within:w-96 transition-[width] duration-300 shadow-sm">
+    <header className="fixed top-0 right-0 w-full md:w-[calc(100%-220px)] z-40 glass-topbar flex justify-between items-center px-4 md:px-8 h-16 font-headline">
+      {/* Hamburger — mobile only */}
+      <button
+        onClick={onMobileMenuToggle}
+        className="md:hidden p-2 text-slate-600 hover:bg-white/40 rounded-xl transition-colors mr-2"
+        aria-label="Abrir menú"
+      >
+        <span className="material-symbols-outlined text-[22px]">menu</span>
+      </button>
+
+      <div className="hidden md:flex items-center bg-white/40 border border-white/50 rounded-2xl px-4 py-2 w-80 focus-within:w-96 transition-[width] duration-300 shadow-sm">
         <span className="material-symbols-outlined text-slate-500 mr-3 text-lg">search</span>
         <input
           className="bg-transparent border-none outline-none w-full text-slate-900 placeholder:text-slate-500 text-xs font-medium focus-visible:ring-0"

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Sidebar } from './components/layout/Sidebar';
 import { TopBar } from './components/layout/TopBar';
@@ -17,6 +18,7 @@ import Ajustes from './pages/Ajustes';
 const App = () => {
   const { session, isLoading } = useAuth();
   const { isTaskModalOpen, closeTaskModal } = useModal();
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center font-headline font-bold text-slate-500">Cargando...</div>;
@@ -29,11 +31,19 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* Background is handled by body styles in index.css matching code.html */}
-      <Sidebar />
-      
-      <main className="ml-[220px] p-8 pb-12 w-[calc(100%-220px)] relative z-10">
-        <TopBar />
-        
+      <Sidebar isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
+
+      {/* Mobile backdrop */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm md:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      <main className="md:ml-[220px] md:w-[calc(100%-220px)] w-full p-4 md:p-8 pb-12 relative z-10">
+        <TopBar onMobileMenuToggle={() => setIsMobileOpen(o => !o)} />
+
         <Routes>
           <Route path="/" element={<Navigate to="/panel" replace />} />
           <Route path="/panel" element={<Panel />} />
