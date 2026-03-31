@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useTareas } from '../hooks/useTareas';
 import { useUsuarios } from '../hooks/useUsuarios';
+import { useAuth } from '../context/AuthContext';
 import { useModal } from '../context/ModalContext';
 import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
 
@@ -9,6 +10,7 @@ type FilterType = 'all' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completada
 const Tareas = () => {
   const { tareas, isLoading, updateTarea } = useTareas();
   const { usuarios } = useUsuarios();
+  const { user } = useAuth();
   const { openTaskModal } = useModal();
 
   const usuarioMap = useMemo(
@@ -75,7 +77,7 @@ const Tareas = () => {
     }
     if (activeFilter === 'urgentes') return t.prioridad === 'critica' || t.prioridad === 'alta';
     if (activeFilter === 'completadas') return t.estado === 'completada';
-    if (activeFilter === 'mis_tareas') return t.estado !== 'completada';
+    if (activeFilter === 'mis_tareas') return t.responsable_id === user?.id;
     return true;
   });
 
@@ -98,7 +100,7 @@ const Tareas = () => {
         <button 
           onClick={() => setActiveFilter('mis_tareas')}
           className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'mis_tareas' ? 'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] border-0 text-white shadow-lg shadow-indigo-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
-        >Activas</button>
+        >Mis Tareas</button>
         <button 
           onClick={() => setActiveFilter('completadas')}
           className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-all ${activeFilter === 'completadas' ? 'bg-emerald-500 border-0 text-white shadow-lg shadow-emerald-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
