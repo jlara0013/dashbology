@@ -33,6 +33,16 @@
     overflow-x: hidden;
   }
 
+  /* Headings — balanced wrapping prevents orphans */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  /* Numeric data — tabular nums prevent layout shift on value changes */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
   /* Animated floating blobs — add depth to the glass effect */
   body::before {
     content: '';
@@ -238,6 +248,16 @@
   }
 
   .font-manrope { font-family: 'Manrope', sans-serif; }
+
+  /* ─── Reduced motion ──────────────────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 
   /* ─── Heatmap ─────────────────────────────────────────────────────────────── */
   .heatmap-square {

@@ -82,7 +82,7 @@ const Panel = () => {
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Hoy</span>
           </div>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight">{String(metrics.hoy).padStart(2, '0')}</h3>
+            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{String(metrics.hoy).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas del Día</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Panel = () => {
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">En Marcha</span>
           </div>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight">{String(metrics.enMarcha).padStart(2, '0')}</h3>
+            <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{String(metrics.enMarcha).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Actividades Activas</p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const Panel = () => {
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Crítico</span>
           </div>
           <div>
-            <h3 className="text-3xl font-headline font-bold text-red-500 tracking-tight">{String(metrics.retrasadas).padStart(2, '0')}</h3>
+            <h3 className="text-3xl font-headline font-bold text-red-500 tracking-tight tabular-nums">{String(metrics.retrasadas).padStart(2, '0')}</h3>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas Retrasadas</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ const Panel = () => {
           </div>
           <div>
             <div className="flex items-baseline gap-2">
-              <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight">{metrics.kpi}%</h3>
+              <h3 className="text-3xl font-headline font-bold text-slate-900 tracking-tight tabular-nums">{metrics.kpi}%</h3>
               <span className="text-[11px] font-extrabold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200/20 mx-2">Completado</span>
             </div>
             <p className="text-[11px] text-slate-500 font-medium tracking-wide">Índice de Productividad Total</p>
