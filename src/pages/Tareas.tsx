@@ -3,7 +3,17 @@ import { useTareas } from '../hooks/useTareas';
 import { useUsuarios } from '../hooks/useUsuarios';
 import { useAuth } from '../context/AuthContext';
 import { useModal } from '../context/ModalContext';
+import { useTimeTracker } from '../context/TimeTrackerContext';
+import { useRegistrosTiempoAgregados } from '../hooks/useRegistrosTiempoAgregados';
 import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
+
+function formatMinutos(minutos: number): string {
+  const h = Math.floor(minutos / 60);
+  const m = minutos % 60;
+  if (h > 0 && m > 0) return `${h}h ${m}m`;
+  if (h > 0) return `${h}h`;
+  return `${m}m`;
+}
 
 type FilterType = 'all' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completadas';
 
@@ -12,6 +22,10 @@ const Tareas = () => {
   const { usuarios } = useUsuarios();
   const { user } = useAuth();
   const { openTaskModal } = useModal();
+  const { lastTimerUpdate } = useTimeTracker();
+
+  const tareaIds = useMemo(() => tareas.map(t => t.id), [tareas]);
+  const tiempoMap = useRegistrosTiempoAgregados(tareaIds, lastTimerUpdate);
 
   const usuarioMap = useMemo(
     () => new Map(usuarios.map(u => [u.id, u.nombre_completo || u.id.slice(0, 8)])),
@@ -166,6 +180,12 @@ const Tareas = () => {
                       <span className="material-symbols-outlined text-[12px]">calendar_today</span>
                       {tarea.fecha_limite ? new Date(tarea.fecha_limite).toLocaleDateString() : 'Sin Fecha'}
                     </span>
+                    {tiempoMap.has(tarea.id) && (
+                      <span className="flex items-center gap-0.5 text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded-md">
+                        <span className="material-symbols-outlined text-[11px]">timer</span>
+                        {formatMinutos(tiempoMap.get(tarea.id)!.totalMinutos)}
+                      </span>
+                    )}
                     {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) && (
                       <div className="w-5 h-5 rounded-md border border-white bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">
                         {usuarioMap.get(tarea.responsable_id)!.charAt(0).toUpperCase()}
@@ -193,14 +213,15 @@ const Tareas = () => {
                 <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Prioridad</th>
                 <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Responsable</th>
                 <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Estado</th>
+                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Tiempo</th>
                 <th className="px-8 py-4"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/20">
               {isLoading ? (
-                <tr><td colSpan={7} className="px-8 py-10 text-center text-slate-500 font-medium text-xs">Cargando tareas...</td></tr>
+                <tr><td colSpan={8} className="px-8 py-10 text-center text-slate-500 font-medium text-xs">Cargando tareas...</td></tr>
               ) : filteredTareas.length === 0 ? (
-                <tr><td colSpan={7} className="px-8 py-10 text-center text-slate-500 font-medium text-xs">No hay tareas que coincidan con el filtro actual.</td></tr>
+                <tr><td colSpan={8} className="px-8 py-10 text-center text-slate-500 font-medium text-xs">No hay tareas que coincidan con el filtro actual.</td></tr>
               ) : (
                 filteredTareas.map((tarea) => (
                   <tr 
@@ -251,6 +272,19 @@ const Tareas = () => {
                     </td>
                     <td className="px-8 py-5">
                       {renderStatusDropdown(tarea)}
+                    </td>
+                    <td className="px-8 py-5">
+                      {tiempoMap.has(tarea.id) ? (
+                        <div className="flex items-center gap-1 text-[11px] font-bold text-indigo-600">
+                          <span className="material-symbols-outlined text-sm">timer</span>
+                          {formatMinutos(tiempoMap.get(tarea.id)!.totalMinutos)}
+                          <span className="text-[9px] font-medium text-slate-400 ml-0.5">
+                            ({tiempoMap.get(tarea.id)!.sessionCount} ses.)
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-[11px] text-slate-300">—</span>
+                      )}
                     </td>
                     <td className="px-8 py-5 text-right">
                       <button

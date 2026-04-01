@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useSeguimientos } from '../../hooks/useSeguimientos';
 import { useTimeTracker } from '../../context/TimeTrackerContext';
+import { useUsuarios } from '../../hooks/useUsuarios';
+import { supabase } from '../../lib/supabase';
 import type { Database } from '../../lib/types';
 import { Button } from './Button';
 
@@ -17,22 +19,29 @@ interface TaskHistoryPanelProps {
 export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelProps) {
   const { user } = useAuth();
   const { seguimientos, isLoading, fetchTaskDetails, addSeguimiento, completeSeguimiento } = useSeguimientos();
-  const { activeTimer, startTimer, fetchRegistrosForTarea, lastTimerUpdate } = useTimeTracker();
+  const { activeTimer, startTimer, lastTimerUpdate } = useTimeTracker();
+  const { usuarios } = useUsuarios();
+  const usuarioMap = useMemo(() => new Map(usuarios.map(u => [u.id, u.nombre_completo || 'Usuario'])), [usuarios]);
   
   const [newNote, setNewNote] = useState('');
   const [newType, setNewType] = useState<'nota' | 'recordatorio' | 'revision' | 'escalamiento'>('nota');
   const [registros, setRegistros] = useState<any[]>([]);
 
   useEffect(() => {
-    if (isOpen && tarea) {
-      fetchTaskDetails(tarea.id);
-      fetchRegistrosForTarea(tarea.id).then(res => {
-        setRegistros(res);
+    if (!isOpen || !tarea) return;
+
+    fetchTaskDetails(tarea.id);
+
+    supabase
+      .from('registros_tiempo')
+      .select('id, tarea_id, user_id, duracion_minutos, descripcion, fecha')
+      .eq('tarea_id', tarea.id)
+      .order('fecha', { ascending: false })
+      .then(({ data, error }) => {
+        if (error) console.error('registros fetch error:', error);
+        setRegistros(data ?? []);
       });
-      // Reference lastTimerUpdate to silence TS unused warning, and effectively trigger the re-fetch
-      if (lastTimerUpdate) { /* no-op */ }
-    }
-  }, [isOpen, tarea, fetchTaskDetails, lastTimerUpdate]); // Fetch when opened, or when global timer stops
+  }, [isOpen, tarea, fetchTaskDetails, lastTimerUpdate]);
 
   const handleAddSeguimiento = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,30 +151,56 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
               </div>
 
               {/* Tiempos Registrados */}
-              {registros.length > 0 && (
-                <div>
-                  <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 ml-1 flex items-center gap-2">
-                    <span className="material-symbols-outlined text-sm">schedule</span>
-                    Tiempo Registrado
-                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full text-[10px] ml-auto">
-                      {Math.floor(registros.reduce((acc, r) => acc + r.duracion_minutos, 0) / 60)}h {registros.reduce((acc, r) => acc + r.duracion_minutos, 0) % 60}m total
+              <div>
+                <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 ml-1 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-sm">schedule</span>
+                  Sesiones de Trabajo
+                  {registros.length > 0 && (
+                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full text-[10px] ml-auto font-black">
+                      {(() => {
+                        const total = registros.reduce((acc, r) => acc + r.duracion_minutos, 0);
+                        const h = Math.floor(total / 60);
+                        const m = total % 60;
+                        return h > 0 ? `${h}h ${m}m total` : `${m}m total`;
+                      })()}
                     </span>
-                  </h3>
+                  )}
+                </h3>
+                {registros.length === 0 ? (
+                  <p className="text-xs text-slate-400 font-medium italic">Aún no hay sesiones registradas. Usa el reloj para iniciar.</p>
+                ) : (
                   <div className="grid gap-2">
-                    {registros.map(reg => (
-                      <div key={reg.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-center justify-between shadow-sm">
-                        <div>
-                          <p className="text-xs font-bold text-slate-700">{reg.usuarios?.nombre_completo || 'Usuario'}</p>
-                          <p className="text-[10px] font-medium text-slate-500">{new Date(reg.fecha).toLocaleDateString()} {reg.descripcion && <span className="ml-1 text-slate-400 font-normal">- {reg.descripcion}</span>}</p>
+                    {registros.map((reg, idx) => {
+                      const sessionNum = registros.length - idx;
+                      const fecha = new Date(reg.fecha);
+                      const h = Math.floor(reg.duracion_minutos / 60);
+                      const m = reg.duracion_minutos % 60;
+                      const duracionStr = h > 0 ? `${h}h ${m}m` : `${m}m`;
+                      return (
+                        <div key={reg.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-start justify-between shadow-sm gap-3">
+                          <div className="flex items-start gap-2.5 min-w-0">
+                            <div className="w-6 h-6 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <span className="text-[9px] font-black text-indigo-500">#{sessionNum}</span>
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-700 truncate">{usuarioMap.get(reg.user_id) || 'Usuario'}</p>
+                              <p className="text-[10px] font-medium text-slate-500">
+                                {fecha.toLocaleDateString()} · {fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </p>
+                              {reg.descripcion && (
+                                <p className="text-[10px] text-slate-400 mt-0.5 italic truncate">"{reg.descripcion}"</p>
+                              )}
+                            </div>
+                          </div>
+                          <div className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg flex-shrink-0">
+                            {duracionStr}
+                          </div>
                         </div>
-                        <div className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
-                          {Math.floor(reg.duracion_minutos / 60) > 0 ? `${Math.floor(reg.duracion_minutos / 60)}h ` : ''}{reg.duracion_minutos % 60}m
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               {/* Feed de Seguimientos */}
               <div>

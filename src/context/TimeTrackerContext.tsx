@@ -95,12 +95,12 @@ export function TimeTrackerProvider({ children }: { children: ReactNode }) {
     if (!session) return [];
     const { data, error } = await supabase
       .from('registros_tiempo')
-      .select('*, usuarios(nombre_completo)')
+      .select('id, tarea_id, user_id, duracion_minutos, descripcion, fecha')
       .eq('tarea_id', tarea_id)
       .order('fecha', { ascending: false });
-      
+
     if (error) {
-      console.error(error);
+      console.error('fetchRegistrosForTarea error:', error);
       return [];
     }
     return data || [];
