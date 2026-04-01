@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTareas } from '../hooks/useTareas';
 import { useUsuarios } from '../hooks/useUsuarios';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +22,16 @@ const Tareas = () => {
   // History Panel State
   const [selectedTarea, setSelectedTarea] = useState<any | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
+  // Sync selected tarea when global tareas list updates
+  useEffect(() => {
+    if (selectedTarea) {
+      const updated = tareas.find(t => t.id === selectedTarea.id);
+      if (updated && JSON.stringify(updated) !== JSON.stringify(selectedTarea)) {
+        setSelectedTarea(updated);
+      }
+    }
+  }, [tareas, selectedTarea]);
 
   const openHistory = (tarea: any) => {
     setSelectedTarea(tarea);

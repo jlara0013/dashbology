@@ -70,16 +70,20 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     setLoading(true);
     setError(null);
 
+    const sanitizedData = { ...formData };
+    if (sanitizedData.proyecto_id === '') sanitizedData.proyecto_id = null;
+    if (sanitizedData.responsable_id === '') sanitizedData.responsable_id = null;
+
     if (isEditing) {
-      const { error } = await updateTarea(editingTarea.id, formData as any);
+      const { error } = await updateTarea(editingTarea.id, sanitizedData as any);
       setLoading(false);
       if (error) setError(error);
       else onClose();
     } else {
       const { error } = await createTarea({
-        ...formData as InsertTarea,
+        ...(sanitizedData as InsertTarea),
         user_id: user.id,
-        responsable_id: formData.responsable_id ?? user.id,
+        responsable_id: sanitizedData.responsable_id ?? user.id,
       });
       setLoading(false);
       if (error) {

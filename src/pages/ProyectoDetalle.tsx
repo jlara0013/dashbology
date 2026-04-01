@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useProyectos } from '../hooks/useProyectos';
 import { useTareas } from '../hooks/useTareas';
 import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Database } from '../lib/types';
 
 type Tarea = Database['public']['Tables']['tareas']['Row'];
@@ -15,6 +15,15 @@ export default function ProyectoDetalle() {
 
   const [selectedTarea, setSelectedTarea] = useState<Tarea | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedTarea) {
+      const updated = tareas.find(t => t.id === selectedTarea.id);
+      if (updated && JSON.stringify(updated) !== JSON.stringify(selectedTarea)) {
+        setSelectedTarea(updated);
+      }
+    }
+  }, [tareas, selectedTarea]);
 
   // Find project
   const proyecto = proyectos.find(p => p.id === id);
