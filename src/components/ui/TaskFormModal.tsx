@@ -190,23 +190,50 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Categoría</label>
-                      <select
-                        name="categoria"
-                        value={formData.categoria}
-                        onChange={handleChange}
-                        className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
-                      >
-                        <option value="hoy">⭐ Hoy (prioridad)</option>
-                        <option value="correo">Correo</option>
-                        <option value="documento">Documento</option>
-                        <option value="reunion">Reunión</option>
-                        <option value="otra">Otra</option>
-                      </select>
+                  {/* Hoy (prioridad) toggle */}
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({
+                      ...prev,
+                      categoria: prev.categoria === 'hoy' ? 'otra' : 'hoy'
+                    }))}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 transition-all text-left ${
+                      formData.categoria === 'hoy'
+                        ? 'border-amber-400 bg-amber-50 shadow-md shadow-amber-200/50'
+                        : 'border-white/60 bg-white/50 hover:border-amber-200 hover:bg-amber-50/30'
+                    }`}
+                  >
+                    <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                      formData.categoria === 'hoy' ? 'bg-amber-400 border-amber-400' : 'border-slate-300 bg-white'
+                    }`}>
+                      {formData.categoria === 'hoy' && (
+                        <span className="material-symbols-outlined text-[13px] text-white font-bold">check</span>
+                      )}
                     </div>
                     <div>
+                      <p className="text-sm font-bold text-slate-800">⭐ Hoy (prioridad)</p>
+                      <p className="text-[10px] text-slate-500 font-medium">Marcar como tarea prioritaria para hoy</p>
+                    </div>
+                  </button>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    {formData.categoria !== 'hoy' && (
+                      <div>
+                        <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Categoría</label>
+                        <select
+                          name="categoria"
+                          value={formData.categoria}
+                          onChange={handleChange}
+                          className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
+                        >
+                          <option value="correo">Correo</option>
+                          <option value="documento">Documento</option>
+                          <option value="reunion">Reunión</option>
+                          <option value="otra">Otra</option>
+                        </select>
+                      </div>
+                    )}
+                    <div className={formData.categoria === 'hoy' ? 'col-span-2' : ''}>
                       <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Estado</label>
                       <select
                         name="estado"
