@@ -11,8 +11,8 @@ import Tareas from './pages/Tareas';
 
 import Calendario from './pages/Calendario';
 import Proyectos from './pages/Proyectos';
+import Reportes from './pages/Reportes';
 import Seguimientos from './pages/Seguimientos';
-import Informes from './pages/Informes';
 import Ajustes from './pages/Ajustes';
 
 const App = () => {
@@ -51,7 +51,7 @@ const App = () => {
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/seguimientos" element={<Seguimientos />} />
           <Route path="/proyectos" element={<Proyectos />} />
-          <Route path="/informes" element={<Informes />} />
+          <Route path="/informes" element={<Reportes />} />
           <Route path="/ajustes" element={<Ajustes />} />
         </Routes>
       </main>

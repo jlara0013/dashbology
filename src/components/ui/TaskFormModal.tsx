@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useTareas } from '../../hooks/useTareas';
 import { useProyectos } from '../../hooks/useProyectos';
 import { useUsuarios } from '../../hooks/useUsuarios';
+import { useModal } from '../../context/ModalContext';
 import { Button } from './Button';
 import { Input } from './Input';
 import type { Database } from '../../lib/types';
@@ -17,22 +18,47 @@ interface TaskFormModalProps {
 
 export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
   const { user } = useAuth();
-  const { createTarea } = useTareas();
+  const { createTarea, updateTarea } = useTareas();
   const { proyectos } = useProyectos();
   const { usuarios } = useUsuarios();
+  const { editingTarea } = useModal();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState<Partial<InsertTarea>>({
+  const isEditing = editingTarea != null;
+
+  const blankForm = {
     titulo: '',
     descripcion: '',
-    prioridad: 'media',
-    categoria: 'programada',
-    estado: 'pendiente',
+    prioridad: 'media' as const,
+    categoria: 'programada' as const,
+    estado: 'pendiente' as const,
     fecha_limite: new Date().toISOString().split('T')[0],
-    proyecto_id: null,
-    responsable_id: user?.id ?? null,
-  });
+    proyecto_id: null as string | null,
+    responsable_id: user?.id ?? null as string | null,
+  };
+
+  const [formData, setFormData] = useState<Partial<InsertTarea>>(blankForm);
+
+  // Sync form data whenever modal opens or the editing target changes
+  useEffect(() => {
+    if (!isOpen) return;
+    if (editingTarea) {
+      setFormData({
+        titulo: editingTarea.titulo,
+        descripcion: editingTarea.descripcion || '',
+        prioridad: editingTarea.prioridad || 'media',
+        categoria: editingTarea.categoria || 'programada',
+        estado: editingTarea.estado || 'pendiente',
+        fecha_limite: editingTarea.fecha_limite || new Date().toISOString().split('T')[0],
+        proyecto_id: editingTarea.proyecto_id,
+        responsable_id: editingTarea.responsable_id,
+      });
+    } else {
+      setFormData({ ...blankForm, responsable_id: user?.id ?? null });
+    }
+    setError(null);
+  }, [isOpen, editingTarea]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -44,27 +70,23 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     setLoading(true);
     setError(null);
 
-    const { error } = await createTarea({
-      ...formData as InsertTarea,
-      user_id: user.id,
-      responsable_id: formData.responsable_id ?? user.id,
-    });
-
-    setLoading(false);
-    if (error) {
-      setError(error);
+    if (isEditing) {
+      const { error } = await updateTarea(editingTarea.id, formData as any);
+      setLoading(false);
+      if (error) setError(error);
+      else onClose();
     } else {
-      onClose(); // Reset and close
-      setFormData({
-        titulo: '',
-        descripcion: '',
-        prioridad: 'media',
-        categoria: 'programada',
-        estado: 'pendiente',
-        fecha_limite: new Date().toISOString().split('T')[0],
-        proyecto_id: null,
-        responsable_id: user.id,
+      const { error } = await createTarea({
+        ...formData as InsertTarea,
+        user_id: user.id,
+        responsable_id: formData.responsable_id ?? user.id,
       });
+      setLoading(false);
+      if (error) {
+        setError(error);
+      } else {
+        onClose();
+      }
     }
   };
 
@@ -92,8 +114,12 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
             <div className="p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-2xl font-headline font-bold text-slate-900 tracking-tight">Nueva Tarea</h2>
-                  <p className="text-sm text-slate-500 font-medium mt-1">Ingresa los detalles para planificar el seguimiento.</p>
+                  <h2 className="text-2xl font-headline font-bold text-slate-900 tracking-tight">
+                    {isEditing ? 'Editar Tarea' : 'Nueva Tarea'}
+                  </h2>
+                  <p className="text-sm text-slate-500 font-medium mt-1">
+                    {isEditing ? 'Modifica los detalles de la tarea.' : 'Ingresa los detalles para planificar el seguimiento.'}
+                  </p>
                 </div>
                 <button
                   onClick={onClose}
@@ -109,7 +135,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                     {error}
                   </div>
                 )}
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Título de la Tarea</label>
@@ -168,7 +194,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Estado Inicial</label>
+                      <label className="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Estado</label>
                       <select
                         name="estado"
                         value={formData.estado}
@@ -177,6 +203,8 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                       >
                         <option value="pendiente">Pendiente</option>
                         <option value="en_progreso">En Progreso</option>
+                        <option value="completada">Completada</option>
+                        <option value="vencida">Retrasada</option>
                       </select>
                     </div>
                   </div>
@@ -231,7 +259,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                     Cancelar
                   </Button>
                   <Button type="submit" variant="primary" disabled={loading} className="px-8 shadow-lg shadow-primary/20">
-                    {loading ? 'Guardando...' : 'Crear Tarea'}
+                    {loading ? 'Guardando...' : isEditing ? 'Guardar Cambios' : 'Crear Tarea'}
                   </Button>
                 </div>
               </form>
