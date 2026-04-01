@@ -30,10 +30,10 @@ function getRelativeDate(dateStr: string): string {
 }
 
 const categoriaIcon: Record<string, string> = {
-  urgente: 'priority_high',
-  reporte: 'description',
-  recurrente: 'repeat',
-  programada: 'calendar_today',
+  correo: 'mail',
+  documento: 'description',
+  reunion: 'groups',
+  otra: 'task_alt',
 };
 
 const prioridadColor: Record<string, string> = {

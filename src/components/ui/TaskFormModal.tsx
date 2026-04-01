@@ -31,7 +31,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
     titulo: '',
     descripcion: '',
     prioridad: 'media' as const,
-    categoria: 'programada' as const,
+    categoria: 'otra' as const,
     estado: 'pendiente' as const,
     fecha_limite: new Date().toISOString().split('T')[0],
     proyecto_id: null as string | null,
@@ -47,7 +47,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
         titulo: editingTarea.titulo,
         descripcion: editingTarea.descripcion || '',
         prioridad: editingTarea.prioridad || 'media',
-        categoria: editingTarea.categoria || 'programada',
+        categoria: editingTarea.categoria || 'otra',
         estado: editingTarea.estado || 'pendiente',
         fecha_limite: editingTarea.fecha_limite ? editingTarea.fecha_limite.split('T')[0] : new Date().toISOString().split('T')[0],
         proyecto_id: editingTarea.proyecto_id,
@@ -199,10 +199,10 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                         onChange={handleChange}
                         className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
                       >
-                        <option value="urgente">Urgente</option>
-                        <option value="reporte">Reporte</option>
-                        <option value="recurrente">Recurrente</option>
-                        <option value="programada">Programada</option>
+                        <option value="correo">Correo</option>
+                        <option value="documento">Documento</option>
+                        <option value="reunion">Reunión</option>
+                        <option value="otra">Otra</option>
                       </select>
                     </div>
                     <div>

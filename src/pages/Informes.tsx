@@ -86,7 +86,7 @@ export default function Informes() {
     };
 
     // By category
-    const categories = ['urgente', 'reporte', 'recurrente', 'delegada', 'programada', 'fijada'] as const;
+    const categories = ['correo', 'documento', 'reunion', 'otra'] as const;
     const byCategory = Object.fromEntries(
       categories.map(c => [c, tareas.filter(t => t.categoria === c).length])
     ) as Record<typeof categories[number], number>;
@@ -154,8 +154,7 @@ export default function Informes() {
   };
 
   const CATEGORY_ICONS: Record<string, string> = {
-    urgente: 'bolt', reporte: 'description', recurrente: 'autorenew',
-    delegada: 'person_add', programada: 'schedule', fijada: 'push_pin',
+    correo: 'mail', documento: 'description', reunion: 'groups', otra: 'task_alt',
   };
 
   const donutSegments = [
