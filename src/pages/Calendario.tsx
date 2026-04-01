@@ -125,7 +125,7 @@ export default function Calendario() {
             </button>
           </div>
           <button 
-            onClick={openTaskModal}
+            onClick={() => openTaskModal()}
             className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-3 rounded-full text-[11px] font-bold transition-[filter] shadow-lg shadow-indigo-500/20 border-0"
           >
             <span className="material-symbols-outlined text-base">add</span>
@@ -150,13 +150,16 @@ export default function Calendario() {
         <div className="grid grid-cols-7 gap-2 lg:gap-4 mb-4">
           {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map(day => (
             <div key={day} className="text-center">
-              <div className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-slate-400">{day.substring(0, 3)}</div>
+              <div className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-slate-500">
+                <span className="sm:hidden">{day.substring(0, 1)}</span>
+                <span className="hidden sm:block">{day.substring(0, 3)}</span>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Calendar Cells */}
-        <div className="grid grid-cols-7 auto-rows-[100px] sm:auto-rows-[140px] gap-2 lg:gap-4">
+        <div className="grid grid-cols-7 auto-rows-[80px] sm:auto-rows-[140px] gap-2 lg:gap-4">
           {calendarDays.map((calDay, idx) => {
             const dayTasks = tasksByDate.get(calDay.dateStr) || [];
             
@@ -177,25 +180,43 @@ export default function Calendario() {
                   )}
                 </div>
 
-                <div className="flex-1 overflow-y-auto no-scrollbar space-y-1 sm:space-y-1.5 flex flex-col pt-1">
+                {/* Mobile: colored dots per task */}
+                <div className="flex flex-wrap gap-1 pt-1 sm:hidden">
                   {dayTasks.slice(0, 3).map(t => {
                     const isPrioridad = t.prioridad === 'critica' || t.prioridad === 'alta';
                     const isCompletada = t.estado === 'completada';
-                    
                     return (
-                      <div 
-                        key={t.id} 
+                      <div
+                        key={t.id}
                         onClick={() => { setSelectedTarea(t); setIsHistoryOpen(true); }}
-                        className={`truncate text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg cursor-pointer transition-[box-shadow,transform,opacity] border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
+                        className={`w-2 h-2 rounded-full cursor-pointer flex-shrink-0 ${isCompletada ? 'bg-emerald-400' : isPrioridad ? 'bg-red-400' : 'bg-indigo-400'}`}
+                        title={t.titulo}
+                      />
+                    );
+                  })}
+                  {dayTasks.length > 3 && (
+                    <div className="w-2 h-2 rounded-full bg-slate-300 flex-shrink-0" title={`+${dayTasks.length - 3} más`} />
+                  )}
+                </div>
+
+                {/* Desktop: text chips */}
+                <div className="hidden sm:flex flex-col flex-1 overflow-y-auto no-scrollbar space-y-1.5 pt-1">
+                  {dayTasks.slice(0, 3).map(t => {
+                    const isPrioridad = t.prioridad === 'critica' || t.prioridad === 'alta';
+                    const isCompletada = t.estado === 'completada';
+                    return (
+                      <div
+                        key={t.id}
+                        onClick={() => { setSelectedTarea(t); setIsHistoryOpen(true); }}
+                        className={`truncate text-[10px] font-bold px-2 py-1 rounded-lg cursor-pointer transition-[box-shadow,transform,opacity] border ${isCompletada ? 'bg-emerald-50 text-emerald-600 border-emerald-100 line-through opacity-70 hover:opacity-100' : isPrioridad ? 'bg-red-50 text-red-600 border-red-100 hover:shadow-sm hover:shadow-red-500/20' : 'bg-white text-slate-700 border-slate-200 hover:shadow-sm hover:-translate-y-0.5'}`}
                         title={t.titulo}
                       >
                         {t.titulo}
                       </div>
-                    )
+                    );
                   })}
-                  
                   {dayTasks.length > 3 && (
-                    <div className="text-[10px] font-bold text-slate-400 pl-1">
+                    <div className="text-[10px] font-bold text-slate-500 pl-1">
                       + {dayTasks.length - 3} más
                     </div>
                   )}

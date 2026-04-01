@@ -115,7 +115,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       </div>
       
       <button 
-        onClick={openTaskModal}
+        onClick={() => openTaskModal()}
         className="w-full py-3 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] text-white rounded-full text-xs font-bold shadow-xl shadow-indigo-500/30 hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0 transition-[filter,transform] mt-auto tracking-wide border-0"
       >
         Nueva Tarea

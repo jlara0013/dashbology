@@ -113,7 +113,7 @@ const Tareas = () => {
           <h2 className="text-lg font-headline font-bold text-slate-900 tracking-tight">Registro de Tareas ({filteredTareas.length})</h2>
           <div className="flex gap-4 items-center">
             <button 
-              onClick={openTaskModal}
+              onClick={() => openTaskModal()}
               className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-2.5 rounded-full text-[11px] font-bold transition-[filter] shadow-lg shadow-indigo-500/20 border-0"
             >
               <span className="material-symbols-outlined text-base">add</span>
@@ -241,8 +241,12 @@ const Tareas = () => {
                       {renderStatusDropdown(tarea)}
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button className="text-slate-300 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 rounded-lg">
-                        <span className="material-symbols-outlined text-xl">open_in_new</span>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); openTaskModal(tarea); }}
+                        title="Editar tarea"
+                        className="text-slate-300 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 rounded-lg"
+                      >
+                        <span className="material-symbols-outlined text-xl">edit</span>
                       </button>
                     </td>
                   </tr>
