@@ -16,6 +16,11 @@ function formatMinutos(minutos: number): string {
 }
 
 type FilterType = 'all' | 'hoy' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completadas';
+type SortField = 'titulo' | 'categoria' | 'fecha_limite' | 'prioridad' | 'responsable' | 'estado' | 'tiempo';
+type SortDir = 'asc' | 'desc';
+
+const PRIORIDAD_ORDER: Record<string, number> = { critica: 0, alta: 1, media: 2, baja: 3 };
+const ESTADO_ORDER: Record<string, number> = { en_progreso: 0, pendiente: 1, vencida: 2, completada: 3 };
 
 const Tareas = () => {
   const { tareas, isLoading, updateTarea } = useTareas();
@@ -32,6 +37,17 @@ const Tareas = () => {
     [usuarios]
   );
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [sortField, setSortField] = useState<SortField>('fecha_limite');
+  const [sortDir, setSortDir] = useState<SortDir>('asc');
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDir('asc');
+    }
+  };
   
   // History Panel State
   const [selectedTarea, setSelectedTarea] = useState<any | null>(null);
@@ -93,20 +109,39 @@ const Tareas = () => {
     }
   };
 
-  const filteredTareas = tareas.filter(t => {
-    if (t.estado === 'completada' && activeFilter !== 'completadas') return false;
-    
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'retrasadas') {
-      const isOverdue = t.estado === 'vencida' || (t.fecha_limite && t.fecha_limite < new Date().toISOString().split('T')[0] && t.estado !== 'completada');
-      return isOverdue;
-    }
-    if (activeFilter === 'hoy') return t.categoria === 'hoy';
-    if (activeFilter === 'urgentes') return t.prioridad === 'critica' || t.prioridad === 'alta';
-    if (activeFilter === 'completadas') return t.estado === 'completada';
-    if (activeFilter === 'mis_tareas') return t.responsable_id === user?.id;
-    return true;
-  });
+  const sortedAndFilteredTareas = useMemo(() => {
+    const filtered = tareas.filter(t => {
+      if (t.estado === 'completada' && activeFilter !== 'completadas') return false;
+      if (activeFilter === 'all') return true;
+      if (activeFilter === 'retrasadas') return t.estado === 'vencida' || (t.fecha_limite && t.fecha_limite < new Date().toISOString().split('T')[0] && t.estado !== 'completada');
+      if (activeFilter === 'hoy') return t.categoria === 'hoy';
+      if (activeFilter === 'urgentes') return t.prioridad === 'critica' || t.prioridad === 'alta';
+      if (activeFilter === 'completadas') return t.estado === 'completada';
+      if (activeFilter === 'mis_tareas') return t.responsable_id === user?.id;
+      return true;
+    });
+
+    return [...filtered].sort((a, b) => {
+      let valA: string | number = '';
+      let valB: string | number = '';
+
+      switch (sortField) {
+        case 'titulo':       valA = a.titulo.toLowerCase(); valB = b.titulo.toLowerCase(); break;
+        case 'categoria':    valA = a.categoria ?? ''; valB = b.categoria ?? ''; break;
+        case 'fecha_limite': valA = a.fecha_limite ?? ''; valB = b.fecha_limite ?? ''; break;
+        case 'prioridad':    valA = PRIORIDAD_ORDER[a.prioridad ?? 'media'] ?? 9; valB = PRIORIDAD_ORDER[b.prioridad ?? 'media'] ?? 9; break;
+        case 'estado':       valA = ESTADO_ORDER[a.estado ?? 'pendiente'] ?? 9; valB = ESTADO_ORDER[b.estado ?? 'pendiente'] ?? 9; break;
+        case 'responsable':  valA = usuarioMap.get(a.responsable_id ?? '') ?? ''; valB = usuarioMap.get(b.responsable_id ?? '') ?? ''; break;
+        case 'tiempo':       valA = tiempoMap.get(a.id)?.totalMinutos ?? 0; valB = tiempoMap.get(b.id)?.totalMinutos ?? 0; break;
+      }
+
+      if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+      if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [tareas, activeFilter, sortField, sortDir, user, usuarioMap, tiempoMap]);
+
+  const filteredTareas = sortedAndFilteredTareas;
 
   return (
     <div className="mt-20 space-y-8 animate-in fade-in duration-500 w-full max-w-[1400px]">
@@ -212,13 +247,28 @@ const Tareas = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white/5">
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Nombre de la Tarea</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Categoría</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Vencimiento</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Prioridad</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Responsable</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Estado</th>
-                <th className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500">Tiempo</th>
+                {([
+                  ['titulo', 'Nombre de la Tarea'],
+                  ['categoria', 'Categoría'],
+                  ['fecha_limite', 'Vencimiento'],
+                  ['prioridad', 'Prioridad'],
+                  ['responsable', 'Responsable'],
+                  ['estado', 'Estado'],
+                  ['tiempo', 'Tiempo'],
+                ] as [SortField, string][]).map(([field, label]) => (
+                  <th
+                    key={field}
+                    onClick={() => handleSort(field)}
+                    className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors"
+                  >
+                    <span className="inline-flex items-center gap-1">
+                      {label}
+                      <span className="material-symbols-outlined text-[12px]">
+                        {sortField === field ? (sortDir === 'asc' ? 'arrow_upward' : 'arrow_downward') : 'unfold_more'}
+                      </span>
+                    </span>
+                  </th>
+                ))}
                 <th className="px-8 py-4"></th>
               </tr>
             </thead>
