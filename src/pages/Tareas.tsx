@@ -7,6 +7,15 @@ import { useTimeTracker } from '../context/TimeTrackerContext';
 import { useRegistrosTiempoAgregados } from '../hooks/useRegistrosTiempoAgregados';
 import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
 
+function formatFechaLimite(fecha: string | null): string {
+  if (!fecha) return 'Sin Fecha';
+  const today = new Date().toISOString().split('T')[0];
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+  if (fecha === today) return 'Hoy';
+  if (fecha === tomorrow) return 'Mañana';
+  return new Date(fecha + 'T12:00:00').toLocaleDateString();
+}
+
 function formatMinutos(minutos: number): string {
   const h = Math.floor(minutos / 60);
   const m = minutos % 60;
@@ -218,7 +227,7 @@ const Tareas = () => {
                     {renderPriorityBadge(tarea.prioridad || 'media')}
                     <span className={`flex items-center gap-1 text-[10px] font-semibold ${isOverdue ? 'text-red-500' : 'text-slate-500'}`}>
                       <span className="material-symbols-outlined text-[12px]">calendar_today</span>
-                      {tarea.fecha_limite ? new Date(tarea.fecha_limite).toLocaleDateString() : 'Sin Fecha'}
+                      {formatFechaLimite(tarea.fecha_limite)}
                     </span>
                     {tiempoMap.has(tarea.id) && (
                       <span className="flex items-center gap-0.5 text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded-md">
@@ -301,7 +310,7 @@ const Tareas = () => {
                     <td className="px-5 py-3">
                       <div className={`flex items-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
                         <span className="material-symbols-outlined text-base">calendar_today</span>
-                        {tarea.fecha_limite ? new Date(tarea.fecha_limite).toLocaleDateString() : 'Sin Fecha'}
+                        {formatFechaLimite(tarea.fecha_limite)}
                       </div>
                     </td>
                     <td className="px-5 py-3">
