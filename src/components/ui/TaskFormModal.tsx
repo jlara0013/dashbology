@@ -40,7 +40,6 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
 
   const [formData, setFormData] = useState<Partial<InsertTarea>>(blankForm);
 
-  // Sync form data whenever modal opens or the editing target changes
   useEffect(() => {
     if (!isOpen) return;
     if (editingTarea) {
@@ -50,7 +49,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
         prioridad: editingTarea.prioridad || 'media',
         categoria: editingTarea.categoria || 'programada',
         estado: editingTarea.estado || 'pendiente',
-        fecha_limite: editingTarea.fecha_limite || new Date().toISOString().split('T')[0],
+        fecha_limite: editingTarea.fecha_limite ? editingTarea.fecha_limite.split('T')[0] : new Date().toISOString().split('T')[0],
         proyecto_id: editingTarea.proyecto_id,
         responsable_id: editingTarea.responsable_id,
       });
@@ -222,6 +221,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                         onChange={handleChange}
                         className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
                       >
+                        <option value="">Sin Asignar</option>
                         {usuarios.map(u => (
                           <option key={u.id} value={u.id}>
                             {u.nombre_completo || u.id.slice(0, 8)}
