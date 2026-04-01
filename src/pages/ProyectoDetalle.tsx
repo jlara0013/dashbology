@@ -15,6 +15,7 @@ export default function ProyectoDetalle() {
 
   const [selectedTarea, setSelectedTarea] = useState<Tarea | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   useEffect(() => {
     if (selectedTarea) {
@@ -111,20 +112,28 @@ export default function ProyectoDetalle() {
 
       {/* Tareas List */}
       <div className="glass-panel rounded-[2.5rem] p-6 lg:p-8 shadow-xl bg-white/20 border-white/40">
-        <h2 className="text-lg font-headline font-black text-slate-800 tracking-tight mb-6 flex items-center gap-2">
-          <span className="material-symbols-outlined text-primary">list_alt</span>
-          Tareas Asignadas
+        <h2 className="text-lg font-headline font-black text-slate-800 tracking-tight mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary">list_alt</span>
+            Tareas Asignadas
+          </div>
+          <button 
+             onClick={() => setShowCompleted(!showCompleted)} 
+             className={`text-[10px] uppercase font-[900] tracking-widest px-4 py-1.5 rounded-full border transition-colors ${showCompleted ? 'bg-slate-800 text-white border-slate-700' : 'bg-white/50 text-slate-500 border-white/60 hover:bg-white hover:text-slate-700 shadow-sm'}`}
+          >
+            {showCompleted ? 'Ocultar Completadas' : 'Ver Completadas'}
+          </button>
         </h2>
 
-        {projectTasks.length === 0 ? (
+        {projectTasks.filter(t => showCompleted || t.estado !== 'completada').length === 0 ? (
           <div className="flex flex-col items-center justify-center p-12 opacity-60">
             <span className="material-symbols-outlined text-4xl text-slate-400 mb-3">inbox</span>
-            <p className="font-bold text-slate-600">No hay tareas en este proyecto.</p>
+            <p className="font-bold text-slate-600">No hay tareas activas en este proyecto.</p>
             <p className="text-xs font-medium text-slate-500 mt-1">Usa el botón "Nueva Tarea" para agregar una y seleccionarla en el desplegable.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projectTasks.sort((a,b) => (a.fecha_limite || '').localeCompare(b.fecha_limite || '')).map(tarea => (
+            {projectTasks.filter(t => showCompleted || t.estado !== 'completada').sort((a,b) => (a.fecha_limite || '').localeCompare(b.fecha_limite || '')).map(tarea => (
               <div 
                 key={tarea.id}
                 onClick={() => { setSelectedTarea(tarea); setIsHistoryOpen(true); }}

@@ -16,6 +16,7 @@ export default function Calendario() {
   // History Panel State
   const [selectedTarea, setSelectedTarea] = useState<Tarea | null>(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   // Month navigation
   const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
@@ -83,6 +84,7 @@ export default function Calendario() {
   const tasksByDate = useMemo(() => {
     const map = new Map<string, Tarea[]>();
     tareas.forEach(t => {
+      if (!showCompleted && t.estado === 'completada') return;
       if (t.fecha_limite) {
         // Assume format is YYYY-MM-DD
         const dateStr = t.fecha_limite.split('T')[0];
@@ -91,7 +93,7 @@ export default function Calendario() {
       }
     });
     return map;
-  }, [tareas]);
+  }, [tareas, showCompleted]);
 
   const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -124,6 +126,12 @@ export default function Calendario() {
               <span className="material-symbols-outlined text-[18px]">chevron_right</span>
             </button>
           </div>
+          <button 
+             onClick={() => setShowCompleted(!showCompleted)} 
+             className={`text-[10px] uppercase font-[900] tracking-widest px-4 py-3 rounded-full border transition-colors ${showCompleted ? 'bg-slate-800 text-white border-slate-700' : 'bg-white/50 text-slate-500 border-white/60 hover:bg-white hover:text-slate-700 shadow-sm'}`}
+          >
+            {showCompleted ? 'Ocultar Completadas' : 'Ver Completadas'}
+          </button>
           <button 
             onClick={() => openTaskModal()}
             className="flex items-center gap-2 bg-gradient-to-r from-[#4facfe] to-[#6b47ff] hover:brightness-110 text-white px-6 py-3 rounded-full text-[11px] font-bold transition-[filter] shadow-lg shadow-indigo-500/20 border-0"

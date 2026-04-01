@@ -80,6 +80,8 @@ const Tareas = () => {
   };
 
   const filteredTareas = tareas.filter(t => {
+    if (t.estado === 'completada' && activeFilter !== 'completadas') return false;
+    
     if (activeFilter === 'all') return true;
     if (activeFilter === 'retrasadas') {
       const isOverdue = t.estado === 'vencida' || (t.fecha_limite && t.fecha_limite < new Date().toISOString().split('T')[0] && t.estado !== 'completada');
