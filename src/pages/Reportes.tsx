@@ -161,61 +161,49 @@ export default function Reportes() {
 
       {activeView === 'tareas' ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in slide-in-from-bottom-4 duration-500">
-            {/* KPI: Tasa de Completitud */}
-            <div className="glass-panel p-6 rounded-[2.5rem] bg-gradient-to-br from-[#4facfe]/10 to-[#6b47ff]/10 border border-indigo-200/50 shadow-lg shadow-indigo-500/10 flex flex-col justify-between h-40">
-               <div className="flex justify-between items-start">
-                 <div className="p-3 bg-white/60 rounded-2xl text-primary shadow-sm">
-                   <span className="material-symbols-outlined text-2xl">monitoring</span>
-                 </div>
-                 <span className="px-3 py-1 bg-white/50 border border-white/60 rounded-full text-[10px] font-extrabold text-slate-600 uppercase tracking-widest">Global</span>
-               </div>
-               <div>
-                  <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight">{stats.completionRate}%</h3>
-                  <p className="text-[11px] text-slate-600 font-bold uppercase tracking-wider mt-1">Tasa de Completitud</p>
-               </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-in slide-in-from-bottom-4 duration-500 mb-8">
+            {/* Card: Tasa de Completitud */}
+            <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+              <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-blue-500/5 select-none pointer-events-none">monitoring</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Global</span>
+              <div>
+                <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{stats.completionRate}%</h3>
+                <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tasa de Completitud</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-400 to-blue-600 rounded-b-3xl" />
             </div>
 
-            {/* Criticas */}
-            <div className="glass-panel p-6 rounded-[2.5rem] border border-red-200/50 bg-red-50/50 shadow-lg flex flex-col justify-between h-40">
-               <div className="flex justify-between items-start">
-                 <div className="p-3 bg-red-100 rounded-2xl text-red-600 shadow-sm">
-                   <span className="material-symbols-outlined text-2xl">priority_high</span>
-                 </div>
-                 <span className="text-[10px] uppercase font-bold text-red-500 tracking-widest">Atención</span>
-               </div>
-               <div>
-                  <h3 className="text-4xl font-headline font-black text-red-600 tracking-tight">{stats.criticas}</h3>
-                  <p className="text-[11px] text-red-500/80 font-bold uppercase tracking-wider mt-1">Tareas Críticas</p>
-               </div>
+            {/* Card: Críticas */}
+            <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+              <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-red-500/5 select-none pointer-events-none">priority_high</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Atención</span>
+              <div>
+                <h3 className="text-4xl font-headline font-black text-red-500 tracking-tight tabular-nums">{String(stats.criticas).padStart(2, '0')}</h3>
+                <p className="text-[11px] text-slate-500 font-medium tracking-wide">Tareas Críticas</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-red-400 to-red-600 rounded-b-3xl" />
             </div>
 
-            {/* Vencidas */}
-            <div className="glass-panel p-6 rounded-[2.5rem] border border-amber-200/50 bg-amber-50/50 shadow-lg flex flex-col justify-between h-40">
-               <div className="flex justify-between items-start">
-                 <div className="p-3 bg-amber-100 rounded-2xl text-amber-600 shadow-sm">
-                   <span className="material-symbols-outlined text-2xl">hourglass_empty</span>
-                 </div>
-                 <span className="text-[10px] uppercase font-bold text-amber-500 tracking-widest">Riesgo</span>
-               </div>
-               <div>
-                  <h3 className="text-4xl font-headline font-black text-amber-600 tracking-tight">{stats.vencidas}</h3>
-                  <p className="text-[11px] text-amber-500/80 font-bold uppercase tracking-wider mt-1">Entregas Vencidas</p>
-               </div>
+            {/* Card: Vencidas */}
+            <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+              <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-amber-500/5 select-none pointer-events-none">hourglass_empty</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Riesgo</span>
+              <div>
+                <h3 className="text-4xl font-headline font-black text-amber-500 tracking-tight tabular-nums">{String(stats.vencidas).padStart(2, '0')}</h3>
+                <p className="text-[11px] text-slate-500 font-medium tracking-wide">Entregas Vencidas</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber-400 to-amber-600 rounded-b-3xl" />
             </div>
 
-            {/* Volumen */}
-            <div className="glass-panel p-6 rounded-[2.5rem] bg-white/40 border border-white/50 shadow-lg flex flex-col justify-between h-40">
-               <div className="flex justify-between items-start">
-                 <div className="p-3 bg-slate-100 rounded-2xl text-slate-600 shadow-sm">
-                   <span className="material-symbols-outlined text-2xl">layers</span>
-                 </div>
-                 <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Volumen</span>
-               </div>
-               <div>
-                  <h3 className="text-4xl font-headline font-black text-slate-800 tracking-tight">{stats.total}</h3>
-                  <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">Total Registrado</p>
-               </div>
+            {/* Card: Volumen */}
+            <div className="glass-panel p-6 rounded-3xl flex flex-col justify-between h-36 hover:translate-y-[-4px] transition-[transform] duration-300 cursor-default overflow-hidden relative">
+              <span className="material-symbols-outlined absolute -bottom-2 -right-2 text-[80px] text-emerald-500/5 select-none pointer-events-none">layers</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em]">Volumen</span>
+              <div>
+                <h3 className="text-4xl font-headline font-black text-slate-900 tracking-tight tabular-nums">{String(stats.total).padStart(2, '0')}</h3>
+                <p className="text-[11px] text-slate-500 font-medium tracking-wide">Total Registrado</p>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-b-3xl" />
             </div>
           </div>
 
