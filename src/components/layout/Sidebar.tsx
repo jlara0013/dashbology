@@ -30,6 +30,7 @@ function getRelativeDate(dateStr: string): string {
 }
 
 const categoriaIcon: Record<string, string> = {
+  hoy: 'star',
   correo: 'mail',
   documento: 'description',
   reunion: 'groups',

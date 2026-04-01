@@ -86,7 +86,7 @@ export default function Informes() {
     };
 
     // By category
-    const categories = ['correo', 'documento', 'reunion', 'otra'] as const;
+    const categories = ['hoy', 'correo', 'documento', 'reunion', 'otra'] as const;
     const byCategory = Object.fromEntries(
       categories.map(c => [c, tareas.filter(t => t.categoria === c).length])
     ) as Record<typeof categories[number], number>;
@@ -154,7 +154,7 @@ export default function Informes() {
   };
 
   const CATEGORY_ICONS: Record<string, string> = {
-    correo: 'mail', documento: 'description', reunion: 'groups', otra: 'task_alt',
+    hoy: 'star', correo: 'mail', documento: 'description', reunion: 'groups', otra: 'task_alt',
   };
 
   const donutSegments = [

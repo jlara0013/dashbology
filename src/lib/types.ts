@@ -42,7 +42,7 @@ export interface Database {
           descripcion: string | null
           estado: 'pendiente' | 'en_progreso' | 'completada' | 'vencida' | 'archivada'
           prioridad: 'critica' | 'alta' | 'media' | 'baja'
-          categoria: 'correo' | 'documento' | 'reunion' | 'otra'
+          categoria: 'hoy' | 'correo' | 'documento' | 'reunion' | 'otra'
           responsable_id: string | null
           delegada_a: string | null
           proyecto_id: string | null
@@ -59,7 +59,7 @@ export interface Database {
           descripcion?: string | null
           estado?: 'pendiente' | 'en_progreso' | 'completada' | 'vencida' | 'archivada'
           prioridad?: 'critica' | 'alta' | 'media' | 'baja'
-          categoria?: 'correo' | 'documento' | 'reunion' | 'otra'
+          categoria?: 'hoy' | 'correo' | 'documento' | 'reunion' | 'otra'
           responsable_id?: string | null
           delegada_a?: string | null
           proyecto_id?: string | null
@@ -76,7 +76,7 @@ export interface Database {
           descripcion?: string | null
           estado?: 'pendiente' | 'en_progreso' | 'completada' | 'vencida' | 'archivada'
           prioridad?: 'critica' | 'alta' | 'media' | 'baja'
-          categoria?: 'correo' | 'documento' | 'reunion' | 'otra'
+          categoria?: 'hoy' | 'correo' | 'documento' | 'reunion' | 'otra'
           responsable_id?: string
           delegada_a?: string | null
           proyecto_id?: string | null

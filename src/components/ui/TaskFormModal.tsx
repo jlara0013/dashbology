@@ -199,6 +199,7 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                         onChange={handleChange}
                         className="w-full h-11 px-4 rounded-xl border border-white/60 bg-white/50 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-shadow appearance-none"
                       >
+                        <option value="hoy">⭐ Hoy (prioridad)</option>
                         <option value="correo">Correo</option>
                         <option value="documento">Documento</option>
                         <option value="reunion">Reunión</option>

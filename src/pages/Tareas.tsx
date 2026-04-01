@@ -15,7 +15,7 @@ function formatMinutos(minutos: number): string {
   return `${m}m`;
 }
 
-type FilterType = 'all' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completadas';
+type FilterType = 'all' | 'hoy' | 'retrasadas' | 'urgentes' | 'mis_tareas' | 'completadas';
 
 const Tareas = () => {
   const { tareas, isLoading, updateTarea } = useTareas();
@@ -101,6 +101,7 @@ const Tareas = () => {
       const isOverdue = t.estado === 'vencida' || (t.fecha_limite && t.fecha_limite < new Date().toISOString().split('T')[0] && t.estado !== 'completada');
       return isOverdue;
     }
+    if (activeFilter === 'hoy') return t.categoria === 'hoy';
     if (activeFilter === 'urgentes') return t.prioridad === 'critica' || t.prioridad === 'alta';
     if (activeFilter === 'completadas') return t.estado === 'completada';
     if (activeFilter === 'mis_tareas') return t.responsable_id === user?.id;
@@ -115,7 +116,11 @@ const Tareas = () => {
           onClick={() => setActiveFilter('all')}
           className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-[background-color,box-shadow,transform] ${activeFilter === 'all' ? 'bg-gradient-to-r from-[#4facfe] to-[#6b47ff] border-0 text-white shadow-lg shadow-indigo-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Todas</button>
-        <button 
+        <button
+          onClick={() => setActiveFilter('hoy')}
+          className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-[background-color,box-shadow,transform] ${activeFilter === 'hoy' ? 'bg-amber-400 border-0 text-white shadow-lg shadow-amber-400/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
+        >⭐ Hoy</button>
+        <button
           onClick={() => setActiveFilter('retrasadas')}
           className={`px-5 py-2.5 rounded-full text-[11px] font-bold transition-[background-color,box-shadow,transform] ${activeFilter === 'retrasadas' ? 'bg-red-500 border-0 text-white shadow-lg shadow-red-500/25 hover:scale-105' : 'bg-white/40 text-slate-700 border border-white/50 hover:bg-white/60'}`}
         >Retrasadas</button>
