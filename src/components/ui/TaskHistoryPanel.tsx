@@ -177,22 +177,20 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
                       const m = reg.duracion_minutos % 60;
                       const duracionStr = h > 0 ? `${h}h ${m}m` : `${m}m`;
                       return (
-                        <div key={reg.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-start justify-between shadow-sm gap-3">
-                          <div className="flex items-start gap-2.5 min-w-0">
-                            <div className="w-6 h-6 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <div key={reg.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-center justify-between shadow-sm gap-3">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-6 h-6 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
                               <span className="text-[9px] font-black text-indigo-500">#{sessionNum}</span>
                             </div>
                             <div className="min-w-0">
                               <p className="text-xs font-bold text-slate-700 truncate">{usuarioMap.get(reg.user_id) || 'Usuario'}</p>
-                              <p className="text-[10px] font-medium text-slate-500">
-                                {fecha.toLocaleDateString()} · {fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                              </p>
+                              <p className="text-[10px] font-medium text-slate-400">{fecha.toLocaleDateString()}</p>
                               {reg.descripcion && (
-                                <p className="text-[10px] text-slate-400 mt-0.5 italic truncate">"{reg.descripcion}"</p>
+                                <p className="text-[10px] text-slate-400 italic truncate">"{reg.descripcion}"</p>
                               )}
                             </div>
                           </div>
-                          <div className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg flex-shrink-0">
+                          <div className="text-sm font-black text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-lg flex-shrink-0">
                             {duracionStr}
                           </div>
                         </div>
