@@ -11,6 +11,7 @@ import Tareas from './pages/Tareas';
 
 import Calendario from './pages/Calendario';
 import Proyectos from './pages/Proyectos';
+import ProyectoDetalle from './pages/ProyectoDetalle';
 import Reportes from './pages/Reportes';
 import Seguimientos from './pages/Seguimientos';
 import Ajustes from './pages/Ajustes';
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/calendario" element={<Calendario />} />
           <Route path="/seguimientos" element={<Seguimientos />} />
           <Route path="/proyectos" element={<Proyectos />} />
+          <Route path="/proyectos/:id" element={<ProyectoDetalle />} />
           <Route path="/informes" element={<Reportes />} />
           <Route path="/ajustes" element={<Ajustes />} />
         </Routes>

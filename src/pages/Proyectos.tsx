@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useProyectos } from '../hooks/useProyectos';
 import { useTareas } from '../hooks/useTareas';
 import { Button } from '../components/ui/Button';
+import { Link } from 'react-router-dom';
 
 export default function Proyectos() {
   const { proyectos, isLoading, createProyecto } = useProyectos();
@@ -94,34 +95,36 @@ export default function Proyectos() {
             const stats = getProjectStats(proyecto.id);
             
             return (
-              <div key={proyecto.id} className="glass-panel p-6 rounded-3xl shadow-lg border border-white/40 hover:-translate-y-1 transition-transform duration-300 group bg-white/20">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#4facfe] to-[#6b47ff] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
-                    <span className="material-symbols-outlined text-2xl">folder</span>
-                  </div>
-                  <div className="px-3 py-1 rounded-lg bg-white/60 text-[10px] font-extrabold text-slate-500 uppercase tracking-widest border border-white/50">
-                    {stats.total} Tareas
-                  </div>
-                </div>
-                
-                <h3 className="text-xl font-bold text-slate-800 mb-2 truncate">{proyecto.nombre}</h3>
-                <p className="text-xs text-slate-500 min-h-[40px] line-clamp-2">{proyecto.descripcion || 'Sin descripción'}</p>
-                
-                <div className="mt-6 pt-6 border-t border-white/30">
-                  <div className="flex justify-between items-end mb-2">
-                    <span className="text-[10px] uppercase tracking-widest font-extrabold text-slate-400">Progreso</span>
-                    <span className="text-lg font-black text-slate-800">{stats.progress}%</span>
+              <Link to={`/proyectos/${proyecto.id}`} key={proyecto.id} className="block">
+                <div className="glass-panel p-6 rounded-3xl shadow-lg border border-white/40 hover:-translate-y-1 transition-transform duration-300 group bg-white/20 h-full">
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#4facfe] to-[#6b47ff] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+                      <span className="material-symbols-outlined text-2xl">folder</span>
+                    </div>
+                    <div className="px-3 py-1 rounded-lg bg-white/60 text-[10px] font-extrabold text-slate-500 uppercase tracking-widest border border-white/50">
+                      {stats.total} Tareas
+                    </div>
                   </div>
                   
-                  {/* Progress Bar */}
-                  <div className="h-2 w-full bg-slate-200/50 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] rounded-full transition-[width] duration-1000 ease-out"
-                      style={{ width: `${stats.progress}%` }}
-                    />
+                  <h3 className="text-xl font-bold text-slate-800 mb-2 truncate group-hover:text-primary transition-colors">{proyecto.nombre}</h3>
+                  <p className="text-xs text-slate-500 min-h-[40px] line-clamp-2">{proyecto.descripcion || 'Sin descripción'}</p>
+                  
+                  <div className="mt-6 pt-6 border-t border-white/30">
+                    <div className="flex justify-between items-end mb-2">
+                      <span className="text-[10px] uppercase tracking-widest font-extrabold text-slate-400">Progreso</span>
+                      <span className="text-lg font-black text-slate-800">{stats.progress}%</span>
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div className="h-2 w-full bg-slate-200/50 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-gradient-to-r from-[#4facfe] to-[#6b47ff] rounded-full transition-all duration-1000 ease-out"
+                        style={{ width: `${stats.progress}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
           
