@@ -18,12 +18,14 @@ interface TimeTrackerContextType {
   stopTimer: (descripcion?: string) => Promise<{ success: boolean; minutos?: number; error?: string }>;
   discardTimer: () => void;
   fetchRegistrosForTarea: (tarea_id: string) => Promise<any[]>;
+  lastTimerUpdate: number;
 }
 
 const TimeTrackerContext = createContext<TimeTrackerContextType | undefined>(undefined);
 
 export function TimeTrackerProvider({ children }: { children: ReactNode }) {
   const [activeTimer, setActiveTimer] = useState<ActiveTimer | null>(null);
+  const [lastTimerUpdate, setLastTimerUpdate] = useState<number>(Date.now());
   const { session } = useAuth();
 
   useEffect(() => {
@@ -77,6 +79,7 @@ export function TimeTrackerProvider({ children }: { children: ReactNode }) {
       if (error) throw error;
       
       setActiveTimer(null);
+      setLastTimerUpdate(Date.now());
       return { success: true, minutos: minsToSave };
     } catch (err: any) {
       console.error(err);
@@ -104,7 +107,7 @@ export function TimeTrackerProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <TimeTrackerContext.Provider value={{ activeTimer, startTimer, stopTimer, discardTimer, fetchRegistrosForTarea }}>
+    <TimeTrackerContext.Provider value={{ activeTimer, startTimer, stopTimer, discardTimer, fetchRegistrosForTarea, lastTimerUpdate }}>
       {children}
     </TimeTrackerContext.Provider>
   );

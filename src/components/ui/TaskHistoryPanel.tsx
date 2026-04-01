@@ -17,7 +17,7 @@ interface TaskHistoryPanelProps {
 export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelProps) {
   const { user } = useAuth();
   const { seguimientos, isLoading, fetchTaskDetails, addSeguimiento, completeSeguimiento } = useSeguimientos();
-  const { activeTimer, startTimer, fetchRegistrosForTarea } = useTimeTracker();
+  const { activeTimer, startTimer, fetchRegistrosForTarea, lastTimerUpdate } = useTimeTracker();
   
   const [newNote, setNewNote] = useState('');
   const [newType, setNewType] = useState<'nota' | 'recordatorio' | 'revision' | 'escalamiento'>('nota');
@@ -29,8 +29,10 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
       fetchRegistrosForTarea(tarea.id).then(res => {
         setRegistros(res);
       });
+      // Reference lastTimerUpdate to silence TS unused warning, and effectively trigger the re-fetch
+      if (lastTimerUpdate) { /* no-op */ }
     }
-  }, [isOpen, tarea, fetchTaskDetails]); // Only trigger on open or task change, fetchRegistros is stable
+  }, [isOpen, tarea, fetchTaskDetails, lastTimerUpdate]); // Fetch when opened, or when global timer stops
 
   const handleAddSeguimiento = async (e: React.FormEvent) => {
     e.preventDefault();
