@@ -9,11 +9,12 @@ import { TaskHistoryPanel } from '../components/ui/TaskHistoryPanel';
 
 function formatFechaLimite(fecha: string | null): string {
   if (!fecha) return 'Sin Fecha';
+  const dateOnly = fecha.substring(0, 10);
   const today = new Date().toISOString().split('T')[0];
   const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-  if (fecha === today) return 'Hoy';
-  if (fecha === tomorrow) return 'Mañana';
-  return new Date(fecha + 'T12:00:00').toLocaleDateString();
+  if (dateOnly === today) return 'Hoy';
+  if (dateOnly === tomorrow) return 'Mañana';
+  return new Date(fecha).toLocaleDateString();
 }
 
 function formatMinutos(minutos: number): string {
