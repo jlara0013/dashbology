@@ -9,6 +9,32 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      registros_tiempo: {
+        Row: {
+          id: string
+          tarea_id: string
+          user_id: string
+          duracion_minutos: number
+          descripcion: string | null
+          fecha: string
+        }
+        Insert: {
+          id?: string
+          tarea_id: string
+          user_id: string
+          duracion_minutos: number
+          descripcion?: string | null
+          fecha?: string
+        }
+        Update: {
+          id?: string
+          tarea_id?: string
+          user_id?: string
+          duracion_minutos?: number
+          descripcion?: string | null
+          fecha?: string
+        }
+      }
       tareas: {
         Row: {
           id: string

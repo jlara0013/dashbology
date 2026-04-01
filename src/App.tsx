@@ -16,6 +16,8 @@ import Reportes from './pages/Reportes';
 import Seguimientos from './pages/Seguimientos';
 import Ajustes from './pages/Ajustes';
 
+import { FloatingTimer } from './components/ui/FloatingTimer';
+
 const App = () => {
   const { session, isLoading } = useAuth();
   const { isTaskModalOpen, closeTaskModal } = useModal();
@@ -59,6 +61,7 @@ const App = () => {
       </main>
 
       <TaskFormModal isOpen={isTaskModalOpen} onClose={closeTaskModal} />
+      <FloatingTimer />
     </BrowserRouter>
   );
 };

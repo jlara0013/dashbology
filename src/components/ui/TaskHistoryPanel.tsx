@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useSeguimientos } from '../../hooks/useSeguimientos';
+import { useTimeTracker } from '../../context/TimeTrackerContext';
 import type { Database } from '../../lib/types';
 import { Button } from './Button';
 
@@ -16,15 +17,20 @@ interface TaskHistoryPanelProps {
 export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelProps) {
   const { user } = useAuth();
   const { seguimientos, isLoading, fetchTaskDetails, addSeguimiento, completeSeguimiento } = useSeguimientos();
+  const { activeTimer, startTimer, fetchRegistrosForTarea } = useTimeTracker();
   
   const [newNote, setNewNote] = useState('');
   const [newType, setNewType] = useState<'nota' | 'recordatorio' | 'revision' | 'escalamiento'>('nota');
+  const [registros, setRegistros] = useState<any[]>([]);
 
   useEffect(() => {
     if (isOpen && tarea) {
       fetchTaskDetails(tarea.id);
+      fetchRegistrosForTarea(tarea.id).then(res => {
+        setRegistros(res);
+      });
     }
-  }, [isOpen, tarea, fetchTaskDetails]);
+  }, [isOpen, tarea, fetchTaskDetails]); // Only trigger on open or task change, fetchRegistros is stable
 
   const handleAddSeguimiento = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,9 +82,21 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
               <div>
                 <span className="text-[10px] font-extrabold uppercase tracking-widest text-primary mb-1 block">Centro de Control</span>
                 <h2 className="text-xl font-headline font-bold text-slate-900 tracking-tight leading-snug pr-4">{tarea.titulo}</h2>
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-2 mt-2 items-center">
                    <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-500">{tarea.referencia || 'General'}</span>
                    <span className="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold text-slate-500">{tarea.estado}</span>
+                   
+                   {/* Play Button */}
+                   <button 
+                     onClick={() => startTimer(tarea.id, tarea.titulo)}
+                     disabled={activeTimer?.tarea_id === tarea.id}
+                     className="ml-2 flex items-center gap-1.5 px-3 py-1 bg-indigo-50 border border-indigo-200 text-indigo-600 rounded-full hover:bg-indigo-100 transition-colors disabled:opacity-50 text-[10px] font-bold uppercase tracking-wider"
+                   >
+                     <span className="material-symbols-outlined text-[14px]">
+                       {activeTimer?.tarea_id === tarea.id ? 'timer' : 'play_arrow'}
+                     </span>
+                     {activeTimer?.tarea_id === tarea.id ? 'Tracking...' : 'Iniciar Reloj'}
+                   </button>
                 </div>
               </div>
               <button
@@ -120,6 +138,32 @@ export function TaskHistoryPanel({ tarea, isOpen, onClose }: TaskHistoryPanelPro
                   </div>
                 </form>
               </div>
+
+              {/* Tiempos Registrados */}
+              {registros.length > 0 && (
+                <div>
+                  <h3 className="text-xs font-extrabold uppercase tracking-widest text-slate-500 mb-4 ml-1 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-sm">schedule</span>
+                    Tiempo Registrado
+                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full text-[10px] ml-auto">
+                      {Math.floor(registros.reduce((acc, r) => acc + r.duracion_minutos, 0) / 60)}h {registros.reduce((acc, r) => acc + r.duracion_minutos, 0) % 60}m total
+                    </span>
+                  </h3>
+                  <div className="grid gap-2">
+                    {registros.map(reg => (
+                      <div key={reg.id} className="bg-white p-3 rounded-xl border border-slate-100 flex items-center justify-between shadow-sm">
+                        <div>
+                          <p className="text-xs font-bold text-slate-700">{reg.usuarios?.nombre_completo || 'Usuario'}</p>
+                          <p className="text-[10px] font-medium text-slate-500">{new Date(reg.fecha).toLocaleDateString()} {reg.descripcion && <span className="ml-1 text-slate-400 font-normal">- {reg.descripcion}</span>}</p>
+                        </div>
+                        <div className="text-xs font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">
+                          {Math.floor(reg.duracion_minutos / 60) > 0 ? `${Math.floor(reg.duracion_minutos / 60)}h ` : ''}{reg.duracion_minutos % 60}m
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Feed de Seguimientos */}
               <div>
