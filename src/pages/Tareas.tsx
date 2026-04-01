@@ -269,7 +269,7 @@ const Tareas = () => {
                   <th
                     key={field}
                     onClick={() => handleSort(field)}
-                    className="px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors"
+                    className={`px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors${field !== 'titulo' ? ' w-px whitespace-nowrap' : ''}`}
                   >
                     <span className="inline-flex items-center gap-1">
                       {label}
@@ -305,26 +305,26 @@ const Tareas = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       <span className="text-[12px] text-slate-600 font-semibold uppercase">{tarea.categoria || 'General'}</span>
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       <div className={`flex items-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
                         <span className="material-symbols-outlined text-base">calendar_today</span>
                         {formatFechaLimite(tarea.fecha_limite)}
                       </div>
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       {renderPriorityBadge(tarea.prioridad || 'media')}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) ? (
                           <>
                             <div className="w-7 h-7 rounded-lg border-2 border-white bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-md text-white text-[10px] font-bold flex-shrink-0">
                               {usuarioMap.get(tarea.responsable_id)!.charAt(0).toUpperCase()}
                             </div>
-                            <span className="text-[11px] font-semibold text-slate-600 truncate max-w-[80px]">
+                            <span className="text-[11px] font-semibold text-slate-600 whitespace-nowrap">
                               {usuarioMap.get(tarea.responsable_id)}
                             </span>
                           </>
@@ -335,10 +335,10 @@ const Tareas = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       {renderStatusDropdown(tarea)}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-5 py-3 w-px whitespace-nowrap">
                       {tiempoMap.has(tarea.id) ? (
                         <div className="flex items-center gap-1 text-[11px] font-bold text-indigo-600">
                           <span className="material-symbols-outlined text-sm">timer</span>
@@ -351,7 +351,7 @@ const Tareas = () => {
                         <span className="text-[11px] text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="px-5 py-3 text-right">
+                    <td className="px-5 py-3 w-px text-right">
                       <button
                         onClick={(e) => { e.stopPropagation(); openTaskModal(tarea); }}
                         title="Editar tarea"
