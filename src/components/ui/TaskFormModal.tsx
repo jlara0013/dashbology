@@ -18,7 +18,7 @@ interface TaskFormModalProps {
 
 export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
   const { user } = useAuth();
-  const { createTarea, updateTarea } = useTareas();
+  const { createTarea, updateTarea, deleteTarea } = useTareas();
   const { proyectos } = useProyectos();
   const { usuarios } = useUsuarios();
   const { editingTarea } = useModal();
@@ -61,6 +61,15 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleDelete = async () => {
+    if (!editingTarea) return;
+    if (!window.confirm('¿Eliminar esta tarea? Esta acción no se puede deshacer.')) return;
+    setLoading(true);
+    await deleteTarea(editingTarea.id);
+    setLoading(false);
+    onClose();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -258,13 +267,26 @@ export function TaskFormModal({ isOpen, onClose }: TaskFormModalProps) {
                   </div>
                 </div>
 
-                <div className="pt-4 flex items-center justify-end gap-3">
-                  <Button type="button" variant="ghost" onClick={onClose} disabled={loading} className="px-6">
-                    Cancelar
-                  </Button>
-                  <Button type="submit" variant="primary" disabled={loading} className="px-8 shadow-lg shadow-primary/20">
-                    {loading ? 'Guardando...' : isEditing ? 'Guardar Cambios' : 'Crear Tarea'}
-                  </Button>
+                <div className="pt-4 flex items-center justify-between gap-3">
+                  {isEditing ? (
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={loading}
+                      className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-red-500 bg-red-50 hover:bg-red-100 rounded-xl transition-colors disabled:opacity-50"
+                    >
+                      <span className="material-symbols-outlined text-sm">delete</span>
+                      Eliminar
+                    </button>
+                  ) : <span />}
+                  <div className="flex items-center gap-3">
+                    <Button type="button" variant="ghost" onClick={onClose} disabled={loading} className="px-6">
+                      Cancelar
+                    </Button>
+                    <Button type="submit" variant="primary" disabled={loading} className="px-8 shadow-lg shadow-primary/20">
+                      {loading ? 'Guardando...' : isEditing ? 'Guardar Cambios' : 'Crear Tarea'}
+                    </Button>
+                  </div>
                 </div>
               </form>
             </div>
