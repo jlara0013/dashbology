@@ -175,7 +175,7 @@ const Tareas = () => {
       
       {/* Detailed List View */}
       <div className="glass-panel rounded-[2.5rem] overflow-hidden shadow-2xl relative">
-        <div className="px-8 py-6 border-b border-white/30 flex justify-between items-center bg-white/10">
+        <div className="px-6 py-4 border-b border-white/30 flex justify-between items-center bg-white/10">
           <h2 className="text-lg font-headline font-bold text-slate-900 tracking-tight">Registro de Tareas ({filteredTareas.length})</h2>
           <div className="flex gap-4 items-center">
             <button 
@@ -259,7 +259,7 @@ const Tareas = () => {
                   <th
                     key={field}
                     onClick={() => handleSort(field)}
-                    className="px-8 py-4 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors"
+                    className="px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors"
                   >
                     <span className="inline-flex items-center gap-1">
                       {label}
@@ -269,7 +269,7 @@ const Tareas = () => {
                     </span>
                   </th>
                 ))}
-                <th className="px-8 py-4"></th>
+                <th className="px-5 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/20">
@@ -284,7 +284,7 @@ const Tareas = () => {
                     onClick={() => openHistory(tarea)}
                     className="row-hover transition-colors duration-300 cursor-pointer group hover:bg-white/5"
                   >
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
                         <span className={`material-symbols-outlined text-lg ${tarea.estado === 'completada' ? 'text-emerald-500' : 'text-primary'}`}>
                           {tarea.estado === 'completada' ? 'check_circle' : 'radio_button_checked'}
@@ -295,19 +295,19 @@ const Tareas = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       <span className="text-[12px] text-slate-600 font-semibold uppercase">{tarea.categoria || 'General'}</span>
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       <div className={`flex items-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
                         <span className="material-symbols-outlined text-base">calendar_today</span>
                         {tarea.fecha_limite ? new Date(tarea.fecha_limite).toLocaleDateString() : 'Sin Fecha'}
                       </div>
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       {renderPriorityBadge(tarea.prioridad || 'media')}
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
                         {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) ? (
                           <>
@@ -325,10 +325,10 @@ const Tareas = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       {renderStatusDropdown(tarea)}
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-5 py-3">
                       {tiempoMap.has(tarea.id) ? (
                         <div className="flex items-center gap-1 text-[11px] font-bold text-indigo-600">
                           <span className="material-symbols-outlined text-sm">timer</span>
@@ -341,7 +341,7 @@ const Tareas = () => {
                         <span className="text-[11px] text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="px-8 py-5 text-right">
+                    <td className="px-5 py-3 text-right">
                       <button
                         onClick={(e) => { e.stopPropagation(); openTaskModal(tarea); }}
                         title="Editar tarea"
