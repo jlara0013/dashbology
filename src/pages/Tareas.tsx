@@ -306,7 +306,7 @@ const Tareas = () => {
                       </div>
                     </td>
                     <td className="px-5 py-3 w-px whitespace-nowrap">
-                      <span className="text-[12px] text-slate-600 font-semibold uppercase">{tarea.categoria || 'General'}</span>
+                      <span className="text-[11px] text-slate-600 font-medium">{tarea.categoria || 'General'}</span>
                     </td>
                     <td className="px-5 py-3 w-px whitespace-nowrap">
                       <div className={`flex items-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
