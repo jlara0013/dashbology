@@ -357,7 +357,7 @@ const Tareas = () => {
                         title="Editar tarea"
                         className="text-slate-300 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 rounded-lg"
                       >
-                        <span className="material-symbols-outlined text-xl">edit</span>
+                        <span className="material-symbols-outlined text-sm">edit</span>
                       </button>
                     </td>
                   </tr>
