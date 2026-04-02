@@ -305,20 +305,20 @@ const Tareas = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
                       <span className="text-[11px] text-slate-600 font-medium capitalize">{tarea.categoria || 'General'}</span>
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
-                      <div className={`flex items-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
+                      <div className={`flex items-center justify-center gap-2 text-[11px] font-semibold ${tarea.estado === 'vencida' || (tarea.fecha_limite && tarea.fecha_limite < new Date().toISOString().split('T')[0] && tarea.estado !== 'completada') ? 'text-red-500' : 'text-slate-600'}`}>
                         <span className="material-symbols-outlined text-base">calendar_today</span>
                         {formatFechaLimite(tarea.fecha_limite)}
                       </div>
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
                       {renderPriorityBadge(tarea.prioridad || 'media')}
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
-                      <div className="flex items-center gap-2">
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
+                      <div className="flex items-center justify-center gap-2">
                         {tarea.responsable_id && usuarioMap.has(tarea.responsable_id) ? (
                           <>
                             <div className="w-7 h-7 rounded-lg border-2 border-white bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-md text-white text-[10px] font-bold flex-shrink-0">
@@ -335,12 +335,12 @@ const Tareas = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
                       {renderStatusDropdown(tarea)}
                     </td>
-                    <td className="px-5 py-3 w-px whitespace-nowrap">
+                    <td className="px-5 py-3 w-px whitespace-nowrap text-center">
                       {tiempoMap.has(tarea.id) ? (
-                        <div className="flex items-center gap-1 text-[11px] font-bold text-indigo-600">
+                        <div className="flex items-center justify-center gap-1 text-[11px] font-bold text-indigo-600">
                           <span className="material-symbols-outlined text-sm">timer</span>
                           {formatMinutos(tiempoMap.get(tarea.id)!.totalMinutos)}
                           <span className="text-[9px] font-medium text-slate-400 ml-0.5">
