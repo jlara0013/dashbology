@@ -296,7 +296,13 @@ const Tareas = () => {
                   >
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-3">
-                        <span className={`material-symbols-outlined text-xs ${tarea.estado === 'completada' ? 'text-emerald-500' : 'text-primary'}`}>
+                        <span className={`material-symbols-outlined text-[10px] leading-none ${
+                          tarea.estado === 'completada' ? 'text-emerald-500' :
+                          tarea.prioridad === 'critica' ? 'text-red-500' :
+                          tarea.prioridad === 'alta' ? 'text-amber-500' :
+                          tarea.prioridad === 'media' ? 'text-blue-500' :
+                          'text-slate-400'
+                        }`}>
                           {tarea.estado === 'completada' ? 'check_circle' : 'radio_button_checked'}
                         </span>
                         <div>
