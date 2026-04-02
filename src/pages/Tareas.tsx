@@ -215,7 +215,13 @@ const Tareas = () => {
                 >
                   {/* Title row */}
                   <div className="flex items-start gap-3">
-                    <span className={`material-symbols-outlined text-lg mt-0.5 flex-shrink-0 ${tarea.estado === 'completada' ? 'text-emerald-500' : 'text-primary'}`}>
+                    <span className={`material-symbols-outlined text-[10px] leading-none mt-0.5 flex-shrink-0 ${
+                      tarea.estado === 'completada' ? 'text-emerald-500' :
+                      tarea.prioridad === 'critica' ? 'text-red-500' :
+                      tarea.prioridad === 'alta' ? 'text-amber-500' :
+                      tarea.prioridad === 'media' ? 'text-blue-500' :
+                      'text-slate-400'
+                    }`}>
                       {tarea.estado === 'completada' ? 'check_circle' : 'radio_button_checked'}
                     </span>
                     <div className="min-w-0">
