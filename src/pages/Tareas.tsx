@@ -282,7 +282,7 @@ const Tareas = () => {
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/20">
+            <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr><td colSpan={8} className="px-8 py-10 text-center text-slate-500 font-medium text-xs">Cargando tareas...</td></tr>
               ) : filteredTareas.length === 0 ? (
