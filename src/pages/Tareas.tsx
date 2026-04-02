@@ -300,7 +300,7 @@ const Tareas = () => {
                           {tarea.estado === 'completada' ? 'check_circle' : 'radio_button_checked'}
                         </span>
                         <div>
-                          <p className="font-medium text-slate-900 text-[13px] tracking-tight group-hover:text-primary transition-colors">{tarea.titulo}</p>
+                          <p className="font-medium text-slate-900 text-[11px] tracking-tight group-hover:text-primary transition-colors">{tarea.titulo}</p>
                           {tarea.descripcion && <p className="text-[10px] text-slate-500 truncate max-w-[200px] mt-0.5">{tarea.descripcion}</p>}
                         </div>
                       </div>
