@@ -258,7 +258,7 @@ const Tareas = () => {
             <thead>
               <tr className="bg-white/5">
                 {([
-                  ['titulo', 'Nombre de la Tarea'],
+                  ['titulo', 'Tarea'],
                   ['categoria', 'Categoría'],
                   ['fecha_limite', 'Vencimiento'],
                   ['prioridad', 'Prioridad'],
