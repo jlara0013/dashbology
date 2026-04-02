@@ -269,7 +269,7 @@ const Tareas = () => {
                   <th
                     key={field}
                     onClick={() => handleSort(field)}
-                    className={`px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors${field !== 'titulo' ? ' w-px whitespace-nowrap' : ''}`}
+                    className={`px-5 py-3 text-[10px] font-extrabold uppercase tracking-[0.2em] text-slate-500 cursor-pointer select-none hover:text-primary transition-colors text-center${field !== 'titulo' ? ' w-px whitespace-nowrap' : ''}`}
                   >
                     <span className="inline-flex items-center gap-1">
                       {label}
